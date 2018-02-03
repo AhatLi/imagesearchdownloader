@@ -1,14 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Net;
 using System.IO;
+using System.Threading;
 
 namespace WindowsFormsApplication5
 {
@@ -19,7 +16,7 @@ namespace WindowsFormsApplication5
         string size;
         int click;
         int dirCount;
-        WebBrowser webBrowser1 = new WebBrowser();
+        static WebBrowser webBrowser1 = new WebBrowser();
 
         PictureBox[] p = new PictureBox[4];
         TextBox[] t = new TextBox[4];
@@ -34,20 +31,20 @@ namespace WindowsFormsApplication5
                 p[i] = new PictureBox();
                 p[i].Location = new Point(10 + (i * 310), 70);
                 p[i].Size = new Size(300, 200);
-                p[i].Parent = this;
-                this.Controls.Add(p[i]);
+                p[i].Parent = tabPage1;
+                tabPage1.Controls.Add(p[i]);
 
                 t[i] = new TextBox();
                 t[i].Location = new Point(10 + (i * 310), 300);
                 t[i].Size = new Size(300, 21);
-                t[i].Parent = this;
-                this.Controls.Add(t[i]);
+                t[i].Parent = tabPage1;
+                tabPage1.Controls.Add(t[i]);
 
                 l[i] = new Label();
                 l[i].Location = new Point(10 + (i * 310), 280);
                 l[i].Size = new Size(300, 21);
-                l[i].Parent = this;
-                this.Controls.Add(l[i]);
+                l[i].Parent = tabPage1;
+                tabPage1.Controls.Add(l[i]);
 
             }
 
@@ -55,15 +52,16 @@ namespace WindowsFormsApplication5
             p[1].MouseClick += new System.Windows.Forms.MouseEventHandler(this.goText1);
             p[2].MouseClick += new System.Windows.Forms.MouseEventHandler(this.goText2);
             p[3].MouseClick += new System.Windows.Forms.MouseEventHandler(this.goText3);
-            p[0].DoubleClick += new EventHandler(this.doubleGoText0);
-            p[1].DoubleClick += new EventHandler(this.doubleGoText1);
-            p[2].DoubleClick += new EventHandler(this.doubleGoText2);
-            p[3].DoubleClick += new EventHandler(this.doubleGoText3);
+            p[0].DoubleClick += new EventHandler(this.downImageFun);
+            p[1].DoubleClick += new EventHandler(this.downImageFun);
+            p[2].DoubleClick += new EventHandler(this.downImageFun);
+            p[3].DoubleClick += new EventHandler(this.downImageFun);
 
 
             textBox4.Text = "http://www.freeproxylists.net/";
             click = 0;
         }
+
 
         void getPic()
         {
@@ -106,7 +104,7 @@ namespace WindowsFormsApplication5
 
         bool retry = true;
 
-        void downloadPic()
+        void downloadPic(String fileName)
         {
             try
             {
@@ -121,7 +119,7 @@ namespace WindowsFormsApplication5
 
 
 
-                string path = ".\\imgFile\\" + textBox3.Text + ".jpg";
+                string path = ".\\imgFile\\" + fileName + ".jpg";
 
                 MyWebClient WClient = new MyWebClient(10);
 
@@ -145,7 +143,7 @@ namespace WindowsFormsApplication5
                     {
                         retry = false;
                         checkBox1.Checked = !checkBox1.Checked;
-                        downloadPic();
+                        downloadPic(fileName);
                         retry = true;
                         checkBox1.Checked = !checkBox1.Checked;
                     }
@@ -196,7 +194,6 @@ namespace WindowsFormsApplication5
             {
                 utf8String += "%" + String.Format("{0:X}", b);
             }
-            Console.WriteLine(utf8String);
 
             string uri = "https://www.google.co.kr/search?q=" + utf8String.Replace(" ", "+") + "&hl=ko&biw=1745&source=lnms&tbm=isch&sa=X&ved=0ahUKEwiy8O7m1Z7NAhXDYaYKHceBDOgQ_AUICCgB&bih=828#imgrc=";
 
@@ -272,21 +269,32 @@ namespace WindowsFormsApplication5
             }
         }
 
-        private void doubleGoText0(object sender, EventArgs e)
+
+        private void goTextClass(object sender, MouseEventArgs e)
         {
-            downloadPic();
+            try
+            {
+                String infoText = ((PictureBox)sender).Name;
+                String infoNo = infoText.Substring(0, infoText.IndexOf(";"));
+                String fileName = infoText.Substring(infoText.IndexOf(";") + 1);
+
+                textBox1.Text = fileName;
+                textBox9.Text = infoNo;
+                Clipboard.SetText(fileName);
+            }
+            catch
+            {
+            }
         }
-        private void doubleGoText1(object sender, EventArgs e)
+
+        private void downImageFun(object sender, EventArgs e)
         {
-            downloadPic();
+            downloadPic(textBox3.Text);
         }
-        private void doubleGoText2(object sender, EventArgs e)
+
+        private void downImageFunClass(object sender, EventArgs e)
         {
-            downloadPic();
-        }
-        private void doubleGoText3(object sender, EventArgs e)
-        {
-            downloadPic();
+            downloadPic(textBox9.Text);
         }
 
         private void button3_Click(object sender, EventArgs e)
@@ -322,46 +330,7 @@ namespace WindowsFormsApplication5
 
         private void button2_Click(object sender, EventArgs e)
         {
-            downloadPic();
-            /*
-           try
-            {
-                string sDirPath;
-                sDirPath = Application.StartupPath + "\\imgFile";
-                DirectoryInfo di = new DirectoryInfo(sDirPath);
-                if (di.Exists == false)
-                {
-                    di.Create();
-                }
-
-
-
-
-                string path = ".\\imgFile\\" + textBox3.Text + ".jpg";
-
-                MyWebClient WClient = new MyWebClient(10);
-
-                if (checkBox1.Checked)
-                {
-                    WebProxy proxy = new WebProxy(textBox4.Text, Convert.ToInt32(textBox5.Text));
-                    proxy.UseDefaultCredentials = false;
-                    proxy.BypassProxyOnLocal = false;
-
-                    WClient.Proxy = proxy;
-                }
-               
-                WClient.DownloadFile(textBox1.Text, path);
-
-
-                WClient.Dispose();
-            }
-            catch(WebException eee)
-           {
-           }
-            catch(ArgumentException ee)
-           {
-           }
-            */
+            downloadPic(textBox3.Text);
         }
 
 
@@ -509,9 +478,7 @@ namespace WindowsFormsApplication5
             {
                 textBox2.Text = fi[dirCount-1].Name.ToString();
             }
-
-
-
+            
             if (textBox6.Text != "")
             {
                 try
@@ -528,6 +495,193 @@ namespace WindowsFormsApplication5
             textBox6.Text = dirCount.ToString();
 
             getPage();
+        }
+
+        List<ImagePage> imageVector = new List<ImagePage>();
+
+        public class ImagePage
+        {
+            public int pageNo;
+            public TextBox fileName;
+            public TextBox pageNoBox;
+            public String response;
+            public String size;
+            public String imgsrc;
+
+            public PictureBox[] p = new PictureBox[4];
+            public TextBox[] t = new TextBox[4];
+            public Label[] l = new Label[4];
+
+            public void getPage()
+            {
+                Encoding encoding = Encoding.GetEncoding(737);
+                System.Text.Encoding utf8 = System.Text.Encoding.UTF8;
+
+                //변환하고자 하는 문자열을 UTF8 방식으로 변환하여 byte 배열로 반환
+                byte[] utf8Bytes;
+                utf8Bytes = utf8.GetBytes(fileName.Text);
+
+                //UTF-8을 string으로 변한
+                string utf8String = "";
+                foreach (byte b in utf8Bytes)
+                {
+                    utf8String += "%" + String.Format("{0:X}", b);
+                }
+
+                string uri = "https://www.google.co.kr/search?q=" + utf8String.Replace(" ", "+") + "&hl=ko&biw=1745&source=lnms&tbm=isch&sa=X&ved=0ahUKEwiy8O7m1Z7NAhXDYaYKHceBDOgQ_AUICCgB&bih=828#imgrc=";
+
+                webBrowser1.Navigate(uri);
+
+                while (webBrowser1.ReadyState != WebBrowserReadyState.Complete)
+                {
+                    Application.DoEvents(); // 웹페이지 로딩이 완료될 때 까지 대기
+                }
+
+                HtmlElement elem;
+                if (webBrowser1.Document != null)
+                {
+                    HtmlElementCollection elems = webBrowser1.Document.GetElementsByTagName("HTML");
+                    if (elems.Count == 1)
+                    {
+                        elem = elems[0];
+                        response = elem.OuterHtml;
+                    }
+                    System.GC.Collect(0, GCCollectionMode.Forced);
+                    System.GC.WaitForFullGCComplete();
+                }
+                getPic();
+            }
+
+
+
+
+            void getPic()
+            {
+                int imgs;
+                if (response != null)
+                {
+                    for (int i = 0; i < 4; i++)
+                    {
+                        imgs = response.IndexOf(",\"ou\":\"");
+                        if (imgs == -1)
+                        {
+                            t[i].Text = "";
+                        }
+                        else
+                        {
+                            string original;
+
+                            response = response.Substring(response.IndexOf("&amp;w=") + "&amp;".Length);
+                            size = response.Substring(0, response.IndexOf("&amp;hl="));
+
+                            response = response.Substring(response.IndexOf(",\"ou\":\"") + ",\"ou\":\"".Length);
+                            original = response.Substring(0, response.IndexOf("\""));
+
+                            response = response.Substring(response.IndexOf(",\"tu\":\"") + ",\"tu\":\"".Length);
+                            imgsrc = response.Substring(0, response.IndexOf("\"")).Replace("\\u003d", "=");
+
+                            WebClient client = new WebClient();
+                            byte[] myDataBuffer = client.DownloadData(imgsrc);
+                            Stream stream = new MemoryStream();
+                            stream.Write(myDataBuffer, 0, myDataBuffer.Length);
+                            p[i].Image = null;
+                            p[i].Image = Image.FromStream(stream, true);
+                            l[i].Text = size.Replace("&amp;", ", ");
+                            t[i].Text = original;
+                            p[i].Name = (pageNo+1).ToString() + ";" + original;
+                            stream.Dispose();
+                        }
+                    }
+                }
+            }
+        };
+
+        bool close = false;
+        int imageNumber = 0;
+        void getPageAllImage()
+        {
+            int imageNumber = 0;
+
+            System.IO.DirectoryInfo di = new System.IO.DirectoryInfo(".");
+            System.IO.DirectoryInfo[] fi = di.GetDirectories("*");
+
+            while (imageNumber < fi.Length)
+            {
+                ImagePage page = new ImagePage();
+
+                for (int i = 0; i < 4; i++)
+                {
+                    page.t[i] = new TextBox();
+                    page.t[i].Location = new Point(tabPage2.AutoScrollPosition.X + 60 + (i * 310), tabPage2.AutoScrollPosition.Y + 70 + (imageNumber * 280));
+                    page.t[i].Size = new Size(200, 20);
+                    page.t[i].Parent = tabPage2;
+                    tabPage2.Controls.Add(page.t[i]);
+
+                    page.p[i] = new PictureBox();
+                    page.p[i].Location = new Point(tabPage2.AutoScrollPosition.X + 60 + (i * 310), tabPage2.AutoScrollPosition.Y + 100 + (imageNumber * 280));
+                    page.p[i].Size = new Size(300, 200);
+                    page.p[i].Parent = tabPage2;
+                    tabPage2.Controls.Add(page.p[i]);
+
+                    page.l[i] = new Label();
+                    page.l[i].Location = new Point(tabPage2.AutoScrollPosition.X + 60 + (i * 310), tabPage2.AutoScrollPosition.Y + 280 + (imageNumber * 280));
+                    page.l[i].Size = new Size(300, 21);
+                    page.l[i].Parent = tabPage2;
+                    tabPage2.Controls.Add(page.l[i]);
+                }
+                page.pageNoBox = new TextBox();
+                page.pageNoBox.Location = new Point(tabPage2.AutoScrollPosition.X + 10, tabPage2.AutoScrollPosition.Y + 40 + (imageNumber * 280));
+                page.pageNoBox.Size = new Size(30, 21);
+                page.pageNoBox.Parent = tabPage2;
+                tabPage2.Controls.Add(page.pageNoBox);
+                page.pageNoBox.Text = (imageNumber + 1).ToString();
+
+                page.fileName = new TextBox();
+                page.fileName.Location = new Point(tabPage2.AutoScrollPosition.X + 60, tabPage2.AutoScrollPosition.Y + 40 + (imageNumber * 280));
+                page.fileName.Size = new Size(300, 21);
+                page.fileName.Parent = tabPage2;
+                tabPage2.Controls.Add(page.fileName);
+
+                page.fileName.Text = fi[imageNumber].Name;
+                page.pageNo = imageNumber;
+                page.getPage();
+
+                page.p[0].MouseClick += new System.Windows.Forms.MouseEventHandler(this.goTextClass);
+                page.p[1].MouseClick += new System.Windows.Forms.MouseEventHandler(this.goTextClass);
+                page.p[2].MouseClick += new System.Windows.Forms.MouseEventHandler(this.goTextClass);
+                page.p[3].MouseClick += new System.Windows.Forms.MouseEventHandler(this.goTextClass);
+                page.p[0].DoubleClick += new EventHandler(this.downImageFunClass);
+                page.p[1].DoubleClick += new EventHandler(this.downImageFunClass);
+                page.p[2].DoubleClick += new EventHandler(this.downImageFunClass);
+                page.p[3].DoubleClick += new EventHandler(this.downImageFunClass);
+                
+                imageNumber++;
+                Thread.Sleep(100);
+                if (close)
+                {
+                    break;
+                }
+            }
+        }
+
+        private void tabPage1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void tabPage2_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button9_Click_1(object sender, EventArgs e)
+        {
+            getPageAllImage();
+        }
+
+        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            close = true;
         }
     }
 }
