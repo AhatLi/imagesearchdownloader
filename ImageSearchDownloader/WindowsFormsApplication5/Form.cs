@@ -18,15 +18,15 @@ namespace WindowsFormsApplication5
         int dirCount;
         static WebBrowser webBrowser1 = new WebBrowser();
 
-        PictureBox[] p = new PictureBox[4];
-        TextBox[] t = new TextBox[4];
-        Label[] l = new Label[4];
+        PictureBox[] p = new PictureBox[5];
+        TextBox[] t = new TextBox[5];
+        Label[] l = new Label[5];
 
         public Form1()
         {
             InitializeComponent();
 
-            for (int i = 0; i < 4; i++)
+            for (int i = 0; i < 5; i++)
             {
                 p[i] = new PictureBox();
                 p[i].Location = new Point(10 + (i * 310), 70);
@@ -52,10 +52,12 @@ namespace WindowsFormsApplication5
             p[1].MouseClick += new System.Windows.Forms.MouseEventHandler(this.goText1);
             p[2].MouseClick += new System.Windows.Forms.MouseEventHandler(this.goText2);
             p[3].MouseClick += new System.Windows.Forms.MouseEventHandler(this.goText3);
+            p[4].MouseClick += new System.Windows.Forms.MouseEventHandler(this.goText4);
             p[0].DoubleClick += new EventHandler(this.downImageFun);
             p[1].DoubleClick += new EventHandler(this.downImageFun);
             p[2].DoubleClick += new EventHandler(this.downImageFun);
             p[3].DoubleClick += new EventHandler(this.downImageFun);
+            p[4].DoubleClick += new EventHandler(this.downImageFun);
 
 
             textBox4.Text = "http://www.freeproxylists.net/";
@@ -68,7 +70,7 @@ namespace WindowsFormsApplication5
             int imgs;
             if (response != null)
             {
-                for (int i = 0; i < 4; i++)
+                for (int i = 0; i < 5; i++)
                 {
                     imgs = response.IndexOf(",\"ou\":\"");
                     if (imgs == -1)
@@ -262,6 +264,18 @@ namespace WindowsFormsApplication5
             {
                 textBox1.Text = t[3].Text;
                 Clipboard.SetText(t[3].Text);
+            }
+            catch
+            {
+
+            }
+        }
+        private void goText4(object sender, EventArgs e)
+        {
+            try
+            {
+                textBox1.Text = t[4].Text;
+                Clipboard.SetText(t[4].Text);
             }
             catch
             {
@@ -508,9 +522,9 @@ namespace WindowsFormsApplication5
             public String size;
             public String imgsrc;
 
-            public PictureBox[] p = new PictureBox[4];
-            public TextBox[] t = new TextBox[4];
-            public Label[] l = new Label[4];
+            public PictureBox[] p = new PictureBox[5];
+            public TextBox[] t = new TextBox[5];
+            public Label[] l = new Label[5];
 
             public void getPage()
             {
@@ -560,7 +574,7 @@ namespace WindowsFormsApplication5
                 int imgs;
                 if (response != null)
                 {
-                    for (int i = 0; i < 4; i++)
+                    for (int i = 0; i < 5; i++)
                     {
                         imgs = response.IndexOf(",\"ou\":\"");
                         if (imgs == -1)
@@ -609,7 +623,7 @@ namespace WindowsFormsApplication5
             {
                 ImagePage page = new ImagePage();
 
-                for (int i = 0; i < 4; i++)
+                for (int i = 0; i < 5; i++)
                 {
                     page.t[i] = new TextBox();
                     page.t[i].Location = new Point(tabPage2.AutoScrollPosition.X + 60 + (i * 310), tabPage2.AutoScrollPosition.Y + 70 + (imageNumber * 280));
