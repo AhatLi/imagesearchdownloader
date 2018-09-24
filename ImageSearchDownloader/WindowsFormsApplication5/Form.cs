@@ -282,8 +282,7 @@ namespace WindowsFormsApplication5
 
             }
         }
-
-
+        
         private void goTextClass(object sender, MouseEventArgs e)
         {
             try
@@ -309,6 +308,11 @@ namespace WindowsFormsApplication5
         private void downImageFunClass(object sender, EventArgs e)
         {
             downloadPic(textBox9.Text);
+        }
+
+        private void reloadPage(object sender, EventArgs e, ImagePage page)
+        {
+            page.getPage();
         }
 
         private void button3_Click(object sender, EventArgs e)
@@ -518,13 +522,16 @@ namespace WindowsFormsApplication5
             public int pageNo;
             public TextBox fileName;
             public TextBox pageNoBox;
+            public TextBox checkBox;
             public String response;
             public String size;
             public String imgsrc;
+            public Button reload = new Button();
 
             public PictureBox[] p = new PictureBox[5];
             public TextBox[] t = new TextBox[5];
             public Label[] l = new Label[5];
+            public Button[] c = new Button[5];
 
             public void getPage()
             {
@@ -533,7 +540,7 @@ namespace WindowsFormsApplication5
 
                 //변환하고자 하는 문자열을 UTF8 방식으로 변환하여 byte 배열로 반환
                 byte[] utf8Bytes;
-                utf8Bytes = utf8.GetBytes(fileName.Text);
+                utf8Bytes = utf8.GetBytes(fileName.Text.Replace("-", "+"));
 
                 //UTF-8을 string으로 변한
                 string utf8String = "";
@@ -542,7 +549,7 @@ namespace WindowsFormsApplication5
                     utf8String += "%" + String.Format("{0:X}", b);
                 }
 
-                string uri = "https://www.google.co.kr/search?q=" + utf8String.Replace(" ", "+") + "&hl=ko&biw=1745&source=lnms&tbm=isch&sa=X&ved=0ahUKEwiy8O7m1Z7NAhXDYaYKHceBDOgQ_AUICCgB&bih=828#imgrc=";
+                string uri = "https://www.google.co.kr/search?q=" + utf8String + "&hl=ko&biw=1745&source=lnms&tbm=isch&sa=X&ved=0ahUKEwiy8O7m1Z7NAhXDYaYKHceBDOgQ_AUICCgB&bih=828#imgrc=";
 
                 webBrowser1.Navigate(uri);
 
@@ -565,10 +572,7 @@ namespace WindowsFormsApplication5
                 }
                 getPic();
             }
-
-
-
-
+            
             void getPic()
             {
                 int imgs;
@@ -636,6 +640,8 @@ namespace WindowsFormsApplication5
                     page.p[i].Size = new Size(300, 200);
                     page.p[i].Parent = tabPage2;
                     tabPage2.Controls.Add(page.p[i]);
+                    page.p[i].MouseClick += new System.Windows.Forms.MouseEventHandler(this.goTextClass);
+                    page.p[i].DoubleClick += new EventHandler(this.downImageFunClass);
 
                     page.l[i] = new Label();
                     page.l[i].Location = new Point(tabPage2.AutoScrollPosition.X + 60 + (i * 310), tabPage2.AutoScrollPosition.Y + 280 + (imageNumber * 280));
@@ -650,6 +656,23 @@ namespace WindowsFormsApplication5
                 tabPage2.Controls.Add(page.pageNoBox);
                 page.pageNoBox.Text = (imageNumber + 1).ToString();
 
+                page.reload = new Button();
+                page.reload.Location = new Point(tabPage2.AutoScrollPosition.X + 380, tabPage2.AutoScrollPosition.Y + 40 + (imageNumber * 280));
+                page.reload.Size = new Size(100, 21);
+                page.reload.Text = "다시읽기";
+                page.reload.MouseClick += new System.Windows.Forms.MouseEventHandler(this.goTextClass);
+                page.reload.MouseClick += (sender, evt) =>
+                        {
+                            reloadPage(null, null, page);
+                        };
+                tabPage2.Controls.Add(page.reload);
+
+                page.checkBox = new TextBox();
+                page.checkBox.Location = new Point(tabPage2.AutoScrollPosition.X + 10, tabPage2.AutoScrollPosition.Y + 70 + (imageNumber * 280));
+                page.checkBox.Size = new Size(30, 21);
+                page.checkBox.MouseClick += new System.Windows.Forms.MouseEventHandler(this.goTextClass);
+                tabPage2.Controls.Add(page.checkBox);
+
                 page.fileName = new TextBox();
                 page.fileName.Location = new Point(tabPage2.AutoScrollPosition.X + 60, tabPage2.AutoScrollPosition.Y + 40 + (imageNumber * 280));
                 page.fileName.Size = new Size(300, 21);
@@ -660,17 +683,8 @@ namespace WindowsFormsApplication5
                 page.pageNo = imageNumber;
                 page.getPage();
 
-                page.p[0].MouseClick += new System.Windows.Forms.MouseEventHandler(this.goTextClass);
-                page.p[1].MouseClick += new System.Windows.Forms.MouseEventHandler(this.goTextClass);
-                page.p[2].MouseClick += new System.Windows.Forms.MouseEventHandler(this.goTextClass);
-                page.p[3].MouseClick += new System.Windows.Forms.MouseEventHandler(this.goTextClass);
-                page.p[0].DoubleClick += new EventHandler(this.downImageFunClass);
-                page.p[1].DoubleClick += new EventHandler(this.downImageFunClass);
-                page.p[2].DoubleClick += new EventHandler(this.downImageFunClass);
-                page.p[3].DoubleClick += new EventHandler(this.downImageFunClass);
-                
                 imageNumber++;
-                Thread.Sleep(100);
+                Thread.Sleep(10);
                 if (close)
                 {
                     break;
@@ -696,6 +710,11 @@ namespace WindowsFormsApplication5
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
             close = true;
+        }
+
+        private void checkBox2_CheckedChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }
