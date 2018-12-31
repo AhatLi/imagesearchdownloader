@@ -716,5 +716,27 @@ namespace WindowsFormsApplication5
         {
 
         }
+
+        private void button10_Click(object sender, EventArgs e)
+        {
+            Encoding encoding = Encoding.GetEncoding(737);
+            System.Text.Encoding utf8 = System.Text.Encoding.UTF8;
+
+            //변환하고자 하는 문자열을 UTF8 방식으로 변환하여 byte 배열로 반환
+            byte[] utf8Bytes;
+            utf8Bytes = utf8.GetBytes(textBox10.Text);
+
+            //UTF-8을 string으로 변한
+            string utf8String = "";
+            Console.Write(" - Encode: ");
+            foreach (byte b in utf8Bytes)
+            {
+                utf8String += "%" + String.Format("{0:X}", b);
+            }
+
+            string uri = "https://www.google.co.kr/search?q=" + utf8String.Replace(" ", "+") + "&hl=ko&biw=1745&source=lnms&tbm=isch&sa=X&ved=0ahUKEwiy8O7m1Z7NAhXDYaYKHceBDOgQ_AUICCgB&bih=828#imgrc=";
+            
+            webBrowser2.Navigate(uri);
+        }
     }
 }
