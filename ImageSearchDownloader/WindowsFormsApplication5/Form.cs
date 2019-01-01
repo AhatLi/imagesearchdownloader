@@ -551,8 +551,6 @@ namespace WindowsFormsApplication5
                     search = name == "" ? "" : (name + " ") + fileName.Text.Replace("-", "+");
                 }
                 utf8Bytes = utf8.GetBytes(search);
-               
-                MessageBox.Show(search);
 
                 //UTF-8을 string으로 변한
                 string utf8String = "";
