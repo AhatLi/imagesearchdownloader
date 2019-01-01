@@ -57,11 +57,14 @@
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.button9 = new System.Windows.Forms.Button();
-            this.textBox9 = new System.Windows.Forms.TextBox();
             this.tabPage3 = new System.Windows.Forms.TabPage();
-            this.button10 = new System.Windows.Forms.Button();
-            this.textBox10 = new System.Windows.Forms.TextBox();
             this.webBrowser2 = new System.Windows.Forms.WebBrowser();
+            this.textBox10 = new System.Windows.Forms.TextBox();
+            this.button10 = new System.Windows.Forms.Button();
+            this.textBox9 = new System.Windows.Forms.TextBox();
+            this.checkBox2 = new System.Windows.Forms.CheckBox();
+            this.textBox11 = new System.Windows.Forms.TextBox();
+            this.label6 = new System.Windows.Forms.Label();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
@@ -315,6 +318,9 @@
             // tabPage2
             // 
             this.tabPage2.AutoScroll = true;
+            this.tabPage2.Controls.Add(this.label6);
+            this.tabPage2.Controls.Add(this.textBox11);
+            this.tabPage2.Controls.Add(this.checkBox2);
             this.tabPage2.Controls.Add(this.button9);
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
@@ -335,13 +341,6 @@
             this.button9.UseVisualStyleBackColor = true;
             this.button9.Click += new System.EventHandler(this.button9_Click_1);
             // 
-            // textBox9
-            // 
-            this.textBox9.Location = new System.Drawing.Point(1148, 8);
-            this.textBox9.Name = "textBox9";
-            this.textBox9.Size = new System.Drawing.Size(41, 21);
-            this.textBox9.TabIndex = 24;
-            // 
             // tabPage3
             // 
             this.tabPage3.Controls.Add(this.webBrowser2);
@@ -354,6 +353,21 @@
             this.tabPage3.Text = "로그인";
             this.tabPage3.UseVisualStyleBackColor = true;
             // 
+            // webBrowser2
+            // 
+            this.webBrowser2.Location = new System.Drawing.Point(3, 27);
+            this.webBrowser2.MinimumSize = new System.Drawing.Size(20, 20);
+            this.webBrowser2.Name = "webBrowser2";
+            this.webBrowser2.Size = new System.Drawing.Size(1462, 519);
+            this.webBrowser2.TabIndex = 26;
+            // 
+            // textBox10
+            // 
+            this.textBox10.Location = new System.Drawing.Point(81, 1);
+            this.textBox10.Name = "textBox10";
+            this.textBox10.Size = new System.Drawing.Size(181, 21);
+            this.textBox10.TabIndex = 25;
+            // 
             // button10
             // 
             this.button10.Location = new System.Drawing.Point(264, 0);
@@ -364,20 +378,38 @@
             this.button10.UseVisualStyleBackColor = true;
             this.button10.Click += new System.EventHandler(this.button10_Click);
             // 
-            // textBox10
+            // textBox9
             // 
-            this.textBox10.Location = new System.Drawing.Point(81, 1);
-            this.textBox10.Name = "textBox10";
-            this.textBox10.Size = new System.Drawing.Size(181, 21);
-            this.textBox10.TabIndex = 25;
+            this.textBox9.Location = new System.Drawing.Point(1148, 8);
+            this.textBox9.Name = "textBox9";
+            this.textBox9.Size = new System.Drawing.Size(41, 21);
+            this.textBox9.TabIndex = 24;
             // 
-            // webBrowser2
+            // checkBox2
             // 
-            this.webBrowser2.Location = new System.Drawing.Point(3, 27);
-            this.webBrowser2.MinimumSize = new System.Drawing.Size(20, 20);
-            this.webBrowser2.Name = "webBrowser2";
-            this.webBrowser2.Size = new System.Drawing.Size(1462, 519);
-            this.webBrowser2.TabIndex = 26;
+            this.checkBox2.AutoSize = true;
+            this.checkBox2.Location = new System.Drawing.Point(437, 10);
+            this.checkBox2.Name = "checkBox2";
+            this.checkBox2.Size = new System.Drawing.Size(66, 16);
+            this.checkBox2.TabIndex = 23;
+            this.checkBox2.Text = "( ) 빼기";
+            this.checkBox2.UseVisualStyleBackColor = true;
+            // 
+            // textBox11
+            // 
+            this.textBox11.Location = new System.Drawing.Point(250, 8);
+            this.textBox11.Name = "textBox11";
+            this.textBox11.Size = new System.Drawing.Size(181, 21);
+            this.textBox11.TabIndex = 24;
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(175, 11);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(65, 12);
+            this.label6.TabIndex = 25;
+            this.label6.Text = "추가검색어";
             // 
             // Form1
             // 
@@ -401,6 +433,7 @@
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
             this.tabPage2.ResumeLayout(false);
+            this.tabPage2.PerformLayout();
             this.tabPage3.ResumeLayout(false);
             this.tabPage3.PerformLayout();
             this.ResumeLayout(false);
@@ -443,6 +476,9 @@
         private System.Windows.Forms.WebBrowser webBrowser2;
         private System.Windows.Forms.TextBox textBox10;
         private System.Windows.Forms.Button button10;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.TextBox textBox11;
+        private System.Windows.Forms.CheckBox checkBox2;
     }
 }
 

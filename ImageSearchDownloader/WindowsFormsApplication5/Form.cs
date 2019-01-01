@@ -312,7 +312,7 @@ namespace WindowsFormsApplication5
 
         private void reloadPage(object sender, EventArgs e, ImagePage page)
         {
-            page.getPage();
+            page.getPage(textBox11.Text, checkBox2.Checked);
         }
 
         private void button3_Click(object sender, EventArgs e)
@@ -533,14 +533,26 @@ namespace WindowsFormsApplication5
             public Label[] l = new Label[5];
             public Button[] c = new Button[5];
 
-            public void getPage()
+            public void getPage(String name, Boolean check)
             {
                 Encoding encoding = Encoding.GetEncoding(737);
                 System.Text.Encoding utf8 = System.Text.Encoding.UTF8;
 
                 //변환하고자 하는 문자열을 UTF8 방식으로 변환하여 byte 배열로 반환
                 byte[] utf8Bytes;
-                utf8Bytes = utf8.GetBytes(fileName.Text.Replace("-", "+"));
+                int index = fileName.Text.IndexOf("[");
+                String search = "";
+                if(check && index >= 0)
+                {
+                    search = name == "" ? "" : (name + " ") + fileName.Text.Replace("-", "+").Substring(fileName.Text.IndexOf("["));
+                }
+                else
+                {
+                    search = name == "" ? "" : (name + " ") + fileName.Text.Replace("-", "+");
+                }
+                utf8Bytes = utf8.GetBytes(search);
+               
+                MessageBox.Show(search);
 
                 //UTF-8을 string으로 변한
                 string utf8String = "";
@@ -681,7 +693,7 @@ namespace WindowsFormsApplication5
 
                 page.fileName.Text = fi[imageNumber].Name;
                 page.pageNo = imageNumber;
-                page.getPage();
+                page.getPage(textBox11.Text, checkBox2.Checked);
 
                 imageNumber++;
                 Thread.Sleep(10);
