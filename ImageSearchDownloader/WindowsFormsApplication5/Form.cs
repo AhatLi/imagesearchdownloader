@@ -537,18 +537,20 @@ namespace WindowsFormsApplication5
             {
                 Encoding encoding = Encoding.GetEncoding(737);
                 System.Text.Encoding utf8 = System.Text.Encoding.UTF8;
-
+                string aaa = this.fileName.Text;
                 //변환하고자 하는 문자열을 UTF8 방식으로 변환하여 byte 배열로 반환
                 byte[] utf8Bytes;
                 int index = fileName.Text.IndexOf("[");
                 String search = "";
                 if(check && index >= 0)
                 {
-                    search = name == "" ? "" : (name + " ") + fileName.Text.Replace("-", "+").Substring(fileName.Text.IndexOf("["));
+                    search = (name == "") ? "" : (name + " ");
+                    search += fileName.Text.Replace("-", "+").Substring(fileName.Text.IndexOf("["));
                 }
                 else
                 {
-                    search = name == "" ? "" : (name + " ") + fileName.Text.Replace("-", "+");
+                    search = (name == "") ? "" : (name + " ");
+                    search += fileName.Text.Replace("-", "+");
                 }
                 utf8Bytes = utf8.GetBytes(search);
 
