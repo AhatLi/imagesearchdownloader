@@ -22,6 +22,8 @@ namespace WindowsFormsApplication5
         TextBox[] t = new TextBox[5];
         Label[] l = new Label[5];
 
+        bool fin = false;
+
         public Form1()
         {
             InitializeComponent();
@@ -62,6 +64,11 @@ namespace WindowsFormsApplication5
 
             textBox4.Text = "http://www.freeproxylists.net/";
             click = 0;
+        }
+
+        ~Form1()
+        {
+            fin = true;
         }
 
 
@@ -637,6 +644,11 @@ namespace WindowsFormsApplication5
 
             while (imageNumber < fi.Length)
             {
+                if(fin)
+                {
+                    return;
+                }
+
                 ImagePage page = new ImagePage();
 
                 for (int i = 0; i < 5; i++)
