@@ -1,4 +1,4 @@
-﻿namespace WindowsFormsApplication5
+﻿namespace ImageSearchDownloader
 {
     partial class Form1
     {
@@ -29,57 +29,57 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            this.button1 = new System.Windows.Forms.Button();
+            this.p1NextBtn = new System.Windows.Forms.Button();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.contextMenuStrip2 = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.button3 = new System.Windows.Forms.Button();
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.textBox3 = new System.Windows.Forms.TextBox();
-            this.button2 = new System.Windows.Forms.Button();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.textBox4 = new System.Windows.Forms.TextBox();
-            this.label4 = new System.Windows.Forms.Label();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
-            this.button4 = new System.Windows.Forms.Button();
-            this.textBox5 = new System.Windows.Forms.TextBox();
-            this.button5 = new System.Windows.Forms.Button();
-            this.textBox6 = new System.Windows.Forms.TextBox();
-            this.label5 = new System.Windows.Forms.Label();
-            this.textBox7 = new System.Windows.Forms.TextBox();
-            this.button6 = new System.Windows.Forms.Button();
-            this.button7 = new System.Windows.Forms.Button();
-            this.button8 = new System.Windows.Forms.Button();
-            this.textBox8 = new System.Windows.Forms.TextBox();
+            this.p1StartBtn = new System.Windows.Forms.Button();
+            this.p1SearchText = new System.Windows.Forms.TextBox();
+            this.fileSrcText = new System.Windows.Forms.TextBox();
+            this.p1NameText = new System.Windows.Forms.TextBox();
+            this.p1DownBtn = new System.Windows.Forms.Button();
+            this.p1Label3 = new System.Windows.Forms.Label();
+            this.fileLabel = new System.Windows.Forms.Label();
+            this.p1Label2 = new System.Windows.Forms.Label();
+            this.proxyText = new System.Windows.Forms.TextBox();
+            this.proxyLabel = new System.Windows.Forms.Label();
+            this.proxyCheck = new System.Windows.Forms.CheckBox();
+            this.p1PageNextBtn = new System.Windows.Forms.Button();
+            this.proxyPortText = new System.Windows.Forms.TextBox();
+            this.p1PagePrevBtn = new System.Windows.Forms.Button();
+            this.p1PageText = new System.Windows.Forms.TextBox();
+            this.p1Label1 = new System.Windows.Forms.Label();
+            this.p1SearchAddText = new System.Windows.Forms.TextBox();
+            this.btnOpen = new System.Windows.Forms.Button();
+            this.p1DirPrevBtn = new System.Windows.Forms.Button();
+            this.p1DirNextBtn = new System.Windows.Forms.Button();
+            this.p1DirText = new System.Windows.Forms.TextBox();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.button9 = new System.Windows.Forms.Button();
+            this.p2Label2 = new System.Windows.Forms.Label();
+            this.p2SearchText = new System.Windows.Forms.TextBox();
+            this.p2Check1 = new System.Windows.Forms.CheckBox();
+            this.p2StartBtn = new System.Windows.Forms.Button();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.webBrowser2 = new System.Windows.Forms.WebBrowser();
-            this.textBox10 = new System.Windows.Forms.TextBox();
-            this.button10 = new System.Windows.Forms.Button();
+            this.p3Text = new System.Windows.Forms.TextBox();
+            this.p3StartBtn = new System.Windows.Forms.Button();
             this.textBox9 = new System.Windows.Forms.TextBox();
-            this.checkBox2 = new System.Windows.Forms.CheckBox();
-            this.textBox11 = new System.Windows.Forms.TextBox();
-            this.label6 = new System.Windows.Forms.Label();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
             this.tabPage3.SuspendLayout();
             this.SuspendLayout();
             // 
-            // button1
+            // p1NextBtn
             // 
-            this.button1.Location = new System.Drawing.Point(314, 5);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 0;
-            this.button1.Text = "다음이미지";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click_1);
+            this.p1NextBtn.Location = new System.Drawing.Point(314, 5);
+            this.p1NextBtn.Name = "p1NextBtn";
+            this.p1NextBtn.Size = new System.Drawing.Size(75, 23);
+            this.p1NextBtn.TabIndex = 0;
+            this.p1NextBtn.Text = "다음이미지";
+            this.p1NextBtn.UseVisualStyleBackColor = true;
+            this.p1NextBtn.Click += new System.EventHandler(this.p1NextBtn_Click_1);
             // 
             // contextMenuStrip1
             // 
@@ -91,192 +91,188 @@
             this.contextMenuStrip2.Name = "contextMenuStrip2";
             this.contextMenuStrip2.Size = new System.Drawing.Size(61, 4);
             // 
-            // button3
+            // p1StartBtn
             // 
-            this.button3.Location = new System.Drawing.Point(189, 5);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(119, 23);
-            this.button3.TabIndex = 6;
-            this.button3.Text = "페이지 읽어들이기";
-            this.button3.UseVisualStyleBackColor = true;
-            this.button3.Click += new System.EventHandler(this.button3_Click);
+            this.p1StartBtn.Location = new System.Drawing.Point(189, 5);
+            this.p1StartBtn.Name = "p1StartBtn";
+            this.p1StartBtn.Size = new System.Drawing.Size(119, 23);
+            this.p1StartBtn.TabIndex = 6;
+            this.p1StartBtn.Text = "페이지 읽어들이기";
+            this.p1StartBtn.UseVisualStyleBackColor = true;
+            this.p1StartBtn.Click += new System.EventHandler(this.p1StartBtn_Click);
             // 
-            // textBox2
+            // p1SearchText
             // 
-            this.textBox2.Location = new System.Drawing.Point(57, 35);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(311, 21);
-            this.textBox2.TabIndex = 7;
+            this.p1SearchText.Location = new System.Drawing.Point(57, 35);
+            this.p1SearchText.Name = "p1SearchText";
+            this.p1SearchText.Size = new System.Drawing.Size(311, 21);
+            this.p1SearchText.TabIndex = 7;
             // 
-            // textBox1
+            // fileSrcText
             // 
-            this.textBox1.Location = new System.Drawing.Point(876, 8);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(181, 21);
-            this.textBox1.TabIndex = 8;
+            this.fileSrcText.Location = new System.Drawing.Point(876, 8);
+            this.fileSrcText.Name = "fileSrcText";
+            this.fileSrcText.Size = new System.Drawing.Size(181, 21);
+            this.fileSrcText.TabIndex = 8;
             // 
-            // textBox3
+            // p1NameText
             // 
-            this.textBox3.Location = new System.Drawing.Point(989, 7);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(103, 21);
-            this.textBox3.TabIndex = 8;
-            this.textBox3.TextChanged += new System.EventHandler(this.textBox3_TextChanged);
-            this.textBox3.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBox3_TextClick);
+            this.p1NameText.Location = new System.Drawing.Point(989, 7);
+            this.p1NameText.Name = "p1NameText";
+            this.p1NameText.Size = new System.Drawing.Size(103, 21);
+            this.p1NameText.TabIndex = 8;
+            this.p1NameText.KeyDown += new System.Windows.Forms.KeyEventHandler(this.p1NameText_TextClick);
             // 
-            // button2
+            // p1DownBtn
             // 
-            this.button2.Location = new System.Drawing.Point(1098, 7);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(75, 23);
-            this.button2.TabIndex = 9;
-            this.button2.Text = "다운로드";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
+            this.p1DownBtn.Location = new System.Drawing.Point(1098, 7);
+            this.p1DownBtn.Name = "p1DownBtn";
+            this.p1DownBtn.Size = new System.Drawing.Size(75, 23);
+            this.p1DownBtn.TabIndex = 9;
+            this.p1DownBtn.Text = "다운로드";
+            this.p1DownBtn.UseVisualStyleBackColor = true;
+            this.p1DownBtn.Click += new System.EventHandler(this.p1DownBtn_Click);
             // 
-            // label1
+            // p1Label3
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(10, 41);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(41, 12);
-            this.label1.TabIndex = 10;
-            this.label1.Text = "검색어";
+            this.p1Label3.AutoSize = true;
+            this.p1Label3.Location = new System.Drawing.Point(10, 41);
+            this.p1Label3.Name = "p1Label3";
+            this.p1Label3.Size = new System.Drawing.Size(41, 12);
+            this.p1Label3.TabIndex = 10;
+            this.p1Label3.Text = "검색어";
             // 
-            // label2
+            // fileLabel
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(765, 14);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(105, 12);
-            this.label2.TabIndex = 10;
-            this.label2.Text = "다운받을 파일주소";
-            this.label2.Click += new System.EventHandler(this.label2_Click);
+            this.fileLabel.AutoSize = true;
+            this.fileLabel.Location = new System.Drawing.Point(765, 14);
+            this.fileLabel.Name = "fileLabel";
+            this.fileLabel.Size = new System.Drawing.Size(105, 12);
+            this.fileLabel.TabIndex = 10;
+            this.fileLabel.Text = "다운받을 파일주소";
             // 
-            // label3
+            // p1Label2
             // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(915, 13);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(57, 12);
-            this.label3.TabIndex = 10;
-            this.label3.Text = "파일 이름";
+            this.p1Label2.AutoSize = true;
+            this.p1Label2.Location = new System.Drawing.Point(915, 13);
+            this.p1Label2.Name = "p1Label2";
+            this.p1Label2.Size = new System.Drawing.Size(57, 12);
+            this.p1Label2.TabIndex = 10;
+            this.p1Label2.Text = "파일 이름";
             // 
-            // textBox4
+            // proxyText
             // 
-            this.textBox4.Location = new System.Drawing.Point(411, 12);
-            this.textBox4.Name = "textBox4";
-            this.textBox4.Size = new System.Drawing.Size(181, 21);
-            this.textBox4.TabIndex = 8;
+            this.proxyText.Location = new System.Drawing.Point(411, 12);
+            this.proxyText.Name = "proxyText";
+            this.proxyText.Size = new System.Drawing.Size(181, 21);
+            this.proxyText.TabIndex = 8;
             // 
-            // label4
+            // proxyLabel
             // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(336, 17);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(69, 12);
-            this.label4.TabIndex = 10;
-            this.label4.Text = "프록시 주소";
-            this.label4.Click += new System.EventHandler(this.label2_Click);
+            this.proxyLabel.AutoSize = true;
+            this.proxyLabel.Location = new System.Drawing.Point(304, 17);
+            this.proxyLabel.Name = "proxyLabel";
+            this.proxyLabel.Size = new System.Drawing.Size(105, 12);
+            this.proxyLabel.TabIndex = 10;
+            this.proxyLabel.Text = "프록시 주소 : 포트";
             // 
-            // checkBox1
+            // proxyCheck
             // 
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.Location = new System.Drawing.Point(652, 14);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(88, 16);
-            this.checkBox1.TabIndex = 11;
-            this.checkBox1.Text = "프록시 사용";
-            this.checkBox1.UseVisualStyleBackColor = true;
-            this.checkBox1.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
+            this.proxyCheck.AutoSize = true;
+            this.proxyCheck.Location = new System.Drawing.Point(652, 14);
+            this.proxyCheck.Name = "proxyCheck";
+            this.proxyCheck.Size = new System.Drawing.Size(88, 16);
+            this.proxyCheck.TabIndex = 11;
+            this.proxyCheck.Text = "프록시 사용";
+            this.proxyCheck.UseVisualStyleBackColor = true;
             // 
-            // button4
+            // p1PageNextBtn
             // 
-            this.button4.Location = new System.Drawing.Point(816, 7);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(75, 23);
-            this.button4.TabIndex = 12;
-            this.button4.Text = "다음";
-            this.button4.UseVisualStyleBackColor = true;
-            this.button4.Click += new System.EventHandler(this.button4_Click);
+            this.p1PageNextBtn.Location = new System.Drawing.Point(816, 7);
+            this.p1PageNextBtn.Name = "p1PageNextBtn";
+            this.p1PageNextBtn.Size = new System.Drawing.Size(75, 23);
+            this.p1PageNextBtn.TabIndex = 12;
+            this.p1PageNextBtn.Text = "다음";
+            this.p1PageNextBtn.UseVisualStyleBackColor = true;
+            this.p1PageNextBtn.Click += new System.EventHandler(this.p1PageNextBtn_Click);
             // 
-            // textBox5
+            // proxyPortText
             // 
-            this.textBox5.Location = new System.Drawing.Point(594, 12);
-            this.textBox5.Name = "textBox5";
-            this.textBox5.Size = new System.Drawing.Size(48, 21);
-            this.textBox5.TabIndex = 14;
-            this.textBox5.DoubleClick += new System.EventHandler(this.goText0);
+            this.proxyPortText.Location = new System.Drawing.Point(594, 12);
+            this.proxyPortText.Name = "proxyPortText";
+            this.proxyPortText.Size = new System.Drawing.Size(48, 21);
+            this.proxyPortText.TabIndex = 14;
+            this.proxyPortText.DoubleClick += new System.EventHandler(this.goText0);
             // 
-            // button5
+            // p1PagePrevBtn
             // 
-            this.button5.Location = new System.Drawing.Point(675, 7);
-            this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(75, 23);
-            this.button5.TabIndex = 15;
-            this.button5.Text = "이전";
-            this.button5.UseVisualStyleBackColor = true;
-            this.button5.Click += new System.EventHandler(this.button5_Click);
+            this.p1PagePrevBtn.Location = new System.Drawing.Point(675, 7);
+            this.p1PagePrevBtn.Name = "p1PagePrevBtn";
+            this.p1PagePrevBtn.Size = new System.Drawing.Size(75, 23);
+            this.p1PagePrevBtn.TabIndex = 15;
+            this.p1PagePrevBtn.Text = "이전";
+            this.p1PagePrevBtn.UseVisualStyleBackColor = true;
+            this.p1PagePrevBtn.Click += new System.EventHandler(this.p1PagePrevBtn_Click);
             // 
-            // textBox6
+            // p1PageText
             // 
-            this.textBox6.Location = new System.Drawing.Point(756, 8);
-            this.textBox6.Name = "textBox6";
-            this.textBox6.Size = new System.Drawing.Size(54, 21);
-            this.textBox6.TabIndex = 16;
+            this.p1PageText.Location = new System.Drawing.Point(756, 8);
+            this.p1PageText.Name = "p1PageText";
+            this.p1PageText.Size = new System.Drawing.Size(54, 21);
+            this.p1PageText.TabIndex = 16;
             // 
-            // label5
+            // p1Label1
             // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(8, 12);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(69, 12);
-            this.label5.TabIndex = 10;
-            this.label5.Text = "추가 검색어";
+            this.p1Label1.AutoSize = true;
+            this.p1Label1.Location = new System.Drawing.Point(8, 12);
+            this.p1Label1.Name = "p1Label1";
+            this.p1Label1.Size = new System.Drawing.Size(69, 12);
+            this.p1Label1.TabIndex = 10;
+            this.p1Label1.Text = "추가 검색어";
             // 
-            // textBox7
+            // p1SearchAddText
             // 
-            this.textBox7.Location = new System.Drawing.Point(83, 6);
-            this.textBox7.Name = "textBox7";
-            this.textBox7.Size = new System.Drawing.Size(100, 21);
-            this.textBox7.TabIndex = 17;
+            this.p1SearchAddText.Location = new System.Drawing.Point(83, 6);
+            this.p1SearchAddText.Name = "p1SearchAddText";
+            this.p1SearchAddText.Size = new System.Drawing.Size(100, 21);
+            this.p1SearchAddText.TabIndex = 17;
             // 
-            // button6
+            // btnOpen
             // 
-            this.button6.Location = new System.Drawing.Point(1067, 6);
-            this.button6.Name = "button6";
-            this.button6.Size = new System.Drawing.Size(75, 23);
-            this.button6.TabIndex = 18;
-            this.button6.Text = "열기";
-            this.button6.UseVisualStyleBackColor = true;
-            this.button6.Click += new System.EventHandler(this.button6_Click);
+            this.btnOpen.Location = new System.Drawing.Point(1067, 6);
+            this.btnOpen.Name = "btnOpen";
+            this.btnOpen.Size = new System.Drawing.Size(75, 23);
+            this.btnOpen.TabIndex = 18;
+            this.btnOpen.Text = "열기";
+            this.btnOpen.UseVisualStyleBackColor = true;
+            this.btnOpen.Click += new System.EventHandler(this.btnOpen_Click);
             // 
-            // button7
+            // p1DirPrevBtn
             // 
-            this.button7.Location = new System.Drawing.Point(478, 5);
-            this.button7.Name = "button7";
-            this.button7.Size = new System.Drawing.Size(75, 23);
-            this.button7.TabIndex = 19;
-            this.button7.Text = "이전";
-            this.button7.UseVisualStyleBackColor = true;
-            this.button7.Click += new System.EventHandler(this.button7_Click);
+            this.p1DirPrevBtn.Location = new System.Drawing.Point(478, 5);
+            this.p1DirPrevBtn.Name = "p1DirPrevBtn";
+            this.p1DirPrevBtn.Size = new System.Drawing.Size(75, 23);
+            this.p1DirPrevBtn.TabIndex = 19;
+            this.p1DirPrevBtn.Text = "이전";
+            this.p1DirPrevBtn.UseVisualStyleBackColor = true;
+            this.p1DirPrevBtn.Click += new System.EventHandler(this.p1DirPrevBtn_Click);
             // 
-            // button8
+            // p1DirNextBtn
             // 
-            this.button8.Location = new System.Drawing.Point(559, 5);
-            this.button8.Name = "button8";
-            this.button8.Size = new System.Drawing.Size(75, 23);
-            this.button8.TabIndex = 19;
-            this.button8.Text = "다음";
-            this.button8.UseVisualStyleBackColor = true;
-            this.button8.Click += new System.EventHandler(this.button8_Click);
+            this.p1DirNextBtn.Location = new System.Drawing.Point(559, 5);
+            this.p1DirNextBtn.Name = "p1DirNextBtn";
+            this.p1DirNextBtn.Size = new System.Drawing.Size(75, 23);
+            this.p1DirNextBtn.TabIndex = 19;
+            this.p1DirNextBtn.Text = "다음";
+            this.p1DirNextBtn.UseVisualStyleBackColor = true;
+            this.p1DirNextBtn.Click += new System.EventHandler(this.p1DirNextBtn_Click);
             // 
-            // textBox8
+            // p1DirText
             // 
-            this.textBox8.Location = new System.Drawing.Point(412, 7);
-            this.textBox8.Name = "textBox8";
-            this.textBox8.Size = new System.Drawing.Size(60, 21);
-            this.textBox8.TabIndex = 20;
+            this.p1DirText.Location = new System.Drawing.Point(412, 7);
+            this.p1DirText.Name = "p1DirText";
+            this.p1DirText.Size = new System.Drawing.Size(60, 21);
+            this.p1DirText.TabIndex = 20;
             // 
             // tabControl1
             // 
@@ -291,21 +287,21 @@
             // 
             // tabPage1
             // 
-            this.tabPage1.Controls.Add(this.textBox7);
-            this.tabPage1.Controls.Add(this.label5);
-            this.tabPage1.Controls.Add(this.button2);
-            this.tabPage1.Controls.Add(this.button1);
-            this.tabPage1.Controls.Add(this.button3);
-            this.tabPage1.Controls.Add(this.textBox2);
-            this.tabPage1.Controls.Add(this.textBox8);
-            this.tabPage1.Controls.Add(this.button8);
-            this.tabPage1.Controls.Add(this.textBox3);
-            this.tabPage1.Controls.Add(this.button7);
-            this.tabPage1.Controls.Add(this.label1);
-            this.tabPage1.Controls.Add(this.textBox6);
-            this.tabPage1.Controls.Add(this.button5);
-            this.tabPage1.Controls.Add(this.label3);
-            this.tabPage1.Controls.Add(this.button4);
+            this.tabPage1.Controls.Add(this.p1SearchAddText);
+            this.tabPage1.Controls.Add(this.p1Label1);
+            this.tabPage1.Controls.Add(this.p1DownBtn);
+            this.tabPage1.Controls.Add(this.p1NextBtn);
+            this.tabPage1.Controls.Add(this.p1StartBtn);
+            this.tabPage1.Controls.Add(this.p1SearchText);
+            this.tabPage1.Controls.Add(this.p1DirText);
+            this.tabPage1.Controls.Add(this.p1DirNextBtn);
+            this.tabPage1.Controls.Add(this.p1NameText);
+            this.tabPage1.Controls.Add(this.p1DirPrevBtn);
+            this.tabPage1.Controls.Add(this.p1Label3);
+            this.tabPage1.Controls.Add(this.p1PageText);
+            this.tabPage1.Controls.Add(this.p1PagePrevBtn);
+            this.tabPage1.Controls.Add(this.p1Label2);
+            this.tabPage1.Controls.Add(this.p1PageNextBtn);
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
@@ -313,15 +309,14 @@
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "한개폴더대상";
             this.tabPage1.UseVisualStyleBackColor = true;
-            this.tabPage1.Click += new System.EventHandler(this.tabPage1_Click);
             // 
             // tabPage2
             // 
             this.tabPage2.AutoScroll = true;
-            this.tabPage2.Controls.Add(this.label6);
-            this.tabPage2.Controls.Add(this.textBox11);
-            this.tabPage2.Controls.Add(this.checkBox2);
-            this.tabPage2.Controls.Add(this.button9);
+            this.tabPage2.Controls.Add(this.p2Label2);
+            this.tabPage2.Controls.Add(this.p2SearchText);
+            this.tabPage2.Controls.Add(this.p2Check1);
+            this.tabPage2.Controls.Add(this.p2StartBtn);
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
@@ -329,23 +324,48 @@
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "전체폴더대상";
             this.tabPage2.UseVisualStyleBackColor = true;
-            this.tabPage2.Click += new System.EventHandler(this.tabPage2_Click);
             // 
-            // button9
+            // p2Label2
             // 
-            this.button9.Location = new System.Drawing.Point(6, 6);
-            this.button9.Name = "button9";
-            this.button9.Size = new System.Drawing.Size(75, 23);
-            this.button9.TabIndex = 22;
-            this.button9.Text = "모든폴더";
-            this.button9.UseVisualStyleBackColor = true;
-            this.button9.Click += new System.EventHandler(this.button9_Click_1);
+            this.p2Label2.AutoSize = true;
+            this.p2Label2.Location = new System.Drawing.Point(175, 11);
+            this.p2Label2.Name = "p2Label2";
+            this.p2Label2.Size = new System.Drawing.Size(65, 12);
+            this.p2Label2.TabIndex = 25;
+            this.p2Label2.Text = "추가검색어";
+            // 
+            // p2SearchText
+            // 
+            this.p2SearchText.Location = new System.Drawing.Point(250, 8);
+            this.p2SearchText.Name = "p2SearchText";
+            this.p2SearchText.Size = new System.Drawing.Size(181, 21);
+            this.p2SearchText.TabIndex = 24;
+            // 
+            // p2Check1
+            // 
+            this.p2Check1.AutoSize = true;
+            this.p2Check1.Location = new System.Drawing.Point(437, 10);
+            this.p2Check1.Name = "p2Check1";
+            this.p2Check1.Size = new System.Drawing.Size(66, 16);
+            this.p2Check1.TabIndex = 23;
+            this.p2Check1.Text = "( ) 빼기";
+            this.p2Check1.UseVisualStyleBackColor = true;
+            // 
+            // p2StartBtn
+            // 
+            this.p2StartBtn.Location = new System.Drawing.Point(6, 6);
+            this.p2StartBtn.Name = "p2StartBtn";
+            this.p2StartBtn.Size = new System.Drawing.Size(75, 23);
+            this.p2StartBtn.TabIndex = 22;
+            this.p2StartBtn.Text = "모든폴더";
+            this.p2StartBtn.UseVisualStyleBackColor = true;
+            this.p2StartBtn.Click += new System.EventHandler(this.p2StartBtn_Click_1);
             // 
             // tabPage3
             // 
             this.tabPage3.Controls.Add(this.webBrowser2);
-            this.tabPage3.Controls.Add(this.textBox10);
-            this.tabPage3.Controls.Add(this.button10);
+            this.tabPage3.Controls.Add(this.p3Text);
+            this.tabPage3.Controls.Add(this.p3StartBtn);
             this.tabPage3.Location = new System.Drawing.Point(4, 22);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Size = new System.Drawing.Size(1656, 849);
@@ -361,22 +381,22 @@
             this.webBrowser2.Size = new System.Drawing.Size(1462, 519);
             this.webBrowser2.TabIndex = 26;
             // 
-            // textBox10
+            // p3Text
             // 
-            this.textBox10.Location = new System.Drawing.Point(81, 1);
-            this.textBox10.Name = "textBox10";
-            this.textBox10.Size = new System.Drawing.Size(181, 21);
-            this.textBox10.TabIndex = 25;
+            this.p3Text.Location = new System.Drawing.Point(81, 1);
+            this.p3Text.Name = "p3Text";
+            this.p3Text.Size = new System.Drawing.Size(181, 21);
+            this.p3Text.TabIndex = 25;
             // 
-            // button10
+            // p3StartBtn
             // 
-            this.button10.Location = new System.Drawing.Point(264, 0);
-            this.button10.Name = "button10";
-            this.button10.Size = new System.Drawing.Size(75, 23);
-            this.button10.TabIndex = 0;
-            this.button10.Text = "검색";
-            this.button10.UseVisualStyleBackColor = true;
-            this.button10.Click += new System.EventHandler(this.button10_Click);
+            this.p3StartBtn.Location = new System.Drawing.Point(264, 0);
+            this.p3StartBtn.Name = "p3StartBtn";
+            this.p3StartBtn.Size = new System.Drawing.Size(75, 23);
+            this.p3StartBtn.TabIndex = 0;
+            this.p3StartBtn.Text = "검색";
+            this.p3StartBtn.UseVisualStyleBackColor = true;
+            this.p3StartBtn.Click += new System.EventHandler(this.p3StartBtn_Click);
             // 
             // textBox9
             // 
@@ -385,32 +405,6 @@
             this.textBox9.Size = new System.Drawing.Size(41, 21);
             this.textBox9.TabIndex = 24;
             // 
-            // checkBox2
-            // 
-            this.checkBox2.AutoSize = true;
-            this.checkBox2.Location = new System.Drawing.Point(437, 10);
-            this.checkBox2.Name = "checkBox2";
-            this.checkBox2.Size = new System.Drawing.Size(66, 16);
-            this.checkBox2.TabIndex = 23;
-            this.checkBox2.Text = "( ) 빼기";
-            this.checkBox2.UseVisualStyleBackColor = true;
-            // 
-            // textBox11
-            // 
-            this.textBox11.Location = new System.Drawing.Point(250, 8);
-            this.textBox11.Name = "textBox11";
-            this.textBox11.Size = new System.Drawing.Size(181, 21);
-            this.textBox11.TabIndex = 24;
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(175, 11);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(65, 12);
-            this.label6.TabIndex = 25;
-            this.label6.Text = "추가검색어";
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
@@ -418,17 +412,16 @@
             this.ClientSize = new System.Drawing.Size(1674, 913);
             this.Controls.Add(this.textBox9);
             this.Controls.Add(this.tabControl1);
-            this.Controls.Add(this.textBox4);
-            this.Controls.Add(this.checkBox1);
-            this.Controls.Add(this.textBox5);
-            this.Controls.Add(this.textBox1);
-            this.Controls.Add(this.label4);
-            this.Controls.Add(this.label2);
-            this.Controls.Add(this.button6);
+            this.Controls.Add(this.proxyText);
+            this.Controls.Add(this.proxyCheck);
+            this.Controls.Add(this.proxyPortText);
+            this.Controls.Add(this.fileSrcText);
+            this.Controls.Add(this.proxyLabel);
+            this.Controls.Add(this.fileLabel);
+            this.Controls.Add(this.btnOpen);
             this.Name = "Form1";
-            this.Text = "Form1";
+            this.Text = "ImageSearchDownloader";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
-            this.Load += new System.EventHandler(this.Form1_Load);
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
@@ -443,42 +436,42 @@
 
         #endregion
 
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button p1NextBtn;
         private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
         private System.Windows.Forms.ContextMenuStrip contextMenuStrip2;
-        private System.Windows.Forms.TextBox textBox2;
-        private System.Windows.Forms.Button button3;
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.TextBox textBox3;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.TextBox textBox4;
-        private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.CheckBox checkBox1;
-        private System.Windows.Forms.Button button4;
-        private System.Windows.Forms.TextBox textBox5;
-        private System.Windows.Forms.Button button5;
-        private System.Windows.Forms.TextBox textBox6;
-        private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.TextBox textBox7;
-        private System.Windows.Forms.Button button6;
-        private System.Windows.Forms.Button button7;
-        private System.Windows.Forms.Button button8;
-        private System.Windows.Forms.TextBox textBox8;
+        private System.Windows.Forms.TextBox p1SearchText;
+        private System.Windows.Forms.Button p1StartBtn;
+        private System.Windows.Forms.TextBox fileSrcText;
+        private System.Windows.Forms.TextBox p1NameText;
+        private System.Windows.Forms.Button p1DownBtn;
+        private System.Windows.Forms.Label p1Label3;
+        private System.Windows.Forms.Label fileLabel;
+        private System.Windows.Forms.Label p1Label2;
+        private System.Windows.Forms.TextBox proxyText;
+        private System.Windows.Forms.Label proxyLabel;
+        private System.Windows.Forms.CheckBox proxyCheck;
+        private System.Windows.Forms.Button p1PageNextBtn;
+        private System.Windows.Forms.TextBox proxyPortText;
+        private System.Windows.Forms.Button p1PagePrevBtn;
+        private System.Windows.Forms.TextBox p1PageText;
+        private System.Windows.Forms.Label p1Label1;
+        private System.Windows.Forms.TextBox p1SearchAddText;
+        private System.Windows.Forms.Button btnOpen;
+        private System.Windows.Forms.Button p1DirPrevBtn;
+        private System.Windows.Forms.Button p1DirNextBtn;
+        private System.Windows.Forms.TextBox p1DirText;
         private System.Windows.Forms.TabControl tabControl1;
         private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.TabPage tabPage2;
-        private System.Windows.Forms.Button button9;
+        private System.Windows.Forms.Button p2StartBtn;
         private System.Windows.Forms.TextBox textBox9;
         private System.Windows.Forms.TabPage tabPage3;
         private System.Windows.Forms.WebBrowser webBrowser2;
-        private System.Windows.Forms.TextBox textBox10;
-        private System.Windows.Forms.Button button10;
-        private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.TextBox textBox11;
-        private System.Windows.Forms.CheckBox checkBox2;
+        private System.Windows.Forms.TextBox p3Text;
+        private System.Windows.Forms.Button p3StartBtn;
+        private System.Windows.Forms.Label p2Label2;
+        private System.Windows.Forms.TextBox p2SearchText;
+        private System.Windows.Forms.CheckBox p2Check1;
     }
 }
 

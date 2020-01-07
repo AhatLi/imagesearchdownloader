@@ -6,8 +6,9 @@ using System.Windows.Forms;
 using System.Net;
 using System.IO;
 using System.Threading;
+using System.Text.RegularExpressions;
 
-namespace WindowsFormsApplication5
+namespace ImageSearchDownloader
 {
     public partial class Form1 : Form
     {
@@ -62,15 +63,9 @@ namespace WindowsFormsApplication5
             p[4].DoubleClick += new EventHandler(this.downImageFun);
 
 
-            textBox4.Text = "http://www.freeproxylists.net/";
+            proxyText.Text = "http://www.freeproxylists.net/";
             click = 0;
         }
-
-        ~Form1()
-        {
-            fin = true;
-        }
-
 
         void getPic()
         {
@@ -79,33 +74,25 @@ namespace WindowsFormsApplication5
             {
                 for (int i = 0; i < 5; i++)
                 {
-                    imgs = response.IndexOf(",\"ou\":\"");
+                    imgs = response.IndexOf("이미지 검색결과");
                     if (imgs == -1)
                     {
                         t[i].Text = "";
                     }
                     else
                     {
-                        string original;
+                        int test = response.IndexOf("이미지 검색결과");
+                        response = response.Substring(response.IndexOf("이미지 검색결과"));
+                        response = response.Substring(response.IndexOf("data:image"));
+                        string data = response.Substring(response.IndexOf("data:image"), response.IndexOf("\""));
 
-                        response = response.Substring(response.IndexOf("&amp;w=") + "&amp;".Length);
-                        size = response.Substring(0, response.IndexOf("&amp;hl="));
+                        var base64Data = Regex.Match(data, @"data:image/(?<type>.+?),(?<data>.+)").Groups["data"].Value;
+                        var binData = Convert.FromBase64String(base64Data);
 
-                        response = response.Substring(response.IndexOf(",\"ou\":\"") + ",\"ou\":\"".Length);
-                        original = response.Substring(0, response.IndexOf("\""));
-
-                        response = response.Substring(response.IndexOf(",\"tu\":\"") + ",\"tu\":\"".Length);
-                        imgsrc = response.Substring(0, response.IndexOf("\"")).Replace("\\u003d", "=");
-
-                        WebClient client = new WebClient();
-                        byte[] myDataBuffer = client.DownloadData(imgsrc);
-                        Stream stream = new MemoryStream();
-                        stream.Write(myDataBuffer, 0, myDataBuffer.Length);
-                        p[i].Image = null;
-                        p[i].Image = Image.FromStream(stream, true);
-                        l[i].Text = size.Replace("&amp;", ", ");
-                        t[i].Text = original;
-                        stream.Dispose();
+                        using (var stream = new MemoryStream(binData))
+                        {
+                            p[i].Image = new Bitmap(stream);
+                        }
                     }
                 }
             }
@@ -125,16 +112,12 @@ namespace WindowsFormsApplication5
                     di.Create();
                 }
 
-
-
-
                 string path = ".\\imgFile\\" + fileName + ".jpg";
-
                 MyWebClient WClient = new MyWebClient(10);
 
-                if (checkBox1.Checked)
+                if (proxyCheck.Checked)
                 {
-                    WebProxy proxy = new WebProxy(textBox4.Text, Convert.ToInt32(textBox5.Text));
+                    WebProxy proxy = new WebProxy(proxyText.Text, Convert.ToInt32(proxyPortText.Text));
                     proxy.UseDefaultCredentials = false;
                     proxy.BypassProxyOnLocal = false;
 
@@ -143,18 +126,17 @@ namespace WindowsFormsApplication5
 
                 WClient.Headers.Add("Accept:text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8");
                 WClient.Headers.Add("User-Agent:Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/42.0.2300.0 Safari/537.36");
-
-                WClient.DownloadFile(textBox1.Text, path);
+                WClient.DownloadFile(fileSrcText.Text, path);
 
                 if(!checkFile(path))
                 {
                     if(retry)
                     {
                         retry = false;
-                        checkBox1.Checked = !checkBox1.Checked;
+                        proxyCheck.Checked = !proxyCheck.Checked;
                         downloadPic(fileName);
                         retry = true;
-                        checkBox1.Checked = !checkBox1.Checked;
+                        proxyCheck.Checked = !proxyCheck.Checked;
                     }
                 }
 
@@ -187,13 +169,13 @@ namespace WindowsFormsApplication5
 
             //변환하고자 하는 문자열을 UTF8 방식으로 변환하여 byte 배열로 반환
             byte[] utf8Bytes;
-            if (textBox7.Text == "")
+            if (p1SearchAddText.Text == "")
             {
-                utf8Bytes = utf8.GetBytes(textBox2.Text);
+                utf8Bytes = utf8.GetBytes(p1SearchText.Text);
             }
             else
             {
-                utf8Bytes = utf8.GetBytes(textBox7.Text + " " + textBox2.Text);
+                utf8Bytes = utf8.GetBytes(p1SearchAddText.Text + " " + p1SearchText.Text);
             }
 
             //UTF-8을 string으로 변한
@@ -233,7 +215,7 @@ namespace WindowsFormsApplication5
         {
             try
             {
-                textBox1.Text = t[0].Text;
+                fileSrcText.Text = t[0].Text;
                 Clipboard.SetText(t[0].Text);
             }
             catch
@@ -245,7 +227,7 @@ namespace WindowsFormsApplication5
         {
             try
             {
-                textBox1.Text = t[1].Text;
+                fileSrcText.Text = t[1].Text;
                 Clipboard.SetText(t[1].Text);
             }
             catch
@@ -257,7 +239,7 @@ namespace WindowsFormsApplication5
         {
             try
             {
-                textBox1.Text = t[2].Text;
+                fileSrcText.Text = t[2].Text;
                 Clipboard.SetText(t[2].Text);
             }
             catch
@@ -269,7 +251,7 @@ namespace WindowsFormsApplication5
         {
             try
             {
-                textBox1.Text = t[3].Text;
+                fileSrcText.Text = t[3].Text;
                 Clipboard.SetText(t[3].Text);
             }
             catch
@@ -281,7 +263,7 @@ namespace WindowsFormsApplication5
         {
             try
             {
-                textBox1.Text = t[4].Text;
+                fileSrcText.Text = t[4].Text;
                 Clipboard.SetText(t[4].Text);
             }
             catch
@@ -298,7 +280,7 @@ namespace WindowsFormsApplication5
                 String infoNo = infoText.Substring(0, infoText.IndexOf(";"));
                 String fileName = infoText.Substring(infoText.IndexOf(";") + 1);
 
-                textBox1.Text = fileName;
+                fileSrcText.Text = fileName;
                 textBox9.Text = infoNo;
                 Clipboard.SetText(fileName);
             }
@@ -309,7 +291,7 @@ namespace WindowsFormsApplication5
 
         private void downImageFun(object sender, EventArgs e)
         {
-            downloadPic(textBox3.Text);
+            downloadPic(p1NameText.Text);
         }
 
         private void downImageFunClass(object sender, EventArgs e)
@@ -319,23 +301,18 @@ namespace WindowsFormsApplication5
 
         private void reloadPage(object sender, EventArgs e, ImagePage page)
         {
-            page.getPage(textBox11.Text, checkBox2.Checked);
+            page.getPage(p2SearchText.Text, p2Check1.Checked);
         }
 
-        private void button3_Click(object sender, EventArgs e)
+        private void p1StartBtn_Click(object sender, EventArgs e)
         {
             getPage();
         }
 
-        private void button1_Click_1(object sender, EventArgs e)
+        private void p1NextBtn_Click_1(object sender, EventArgs e)
         {
             getPic();
         }
-
-
-
-
-
 
         class MyWebClient : WebClient
         {
@@ -353,34 +330,18 @@ namespace WindowsFormsApplication5
             }
         };
 
-        private void button2_Click(object sender, EventArgs e)
+        private void p1DownBtn_Click(object sender, EventArgs e)
         {
-            downloadPic(textBox3.Text);
+            downloadPic(p1NameText.Text);
         }
 
-
-        private void Form1_Load(object sender, EventArgs e)
+        private void p1PageNextBtn_Click(object sender, EventArgs e)
         {
-
-        }
-
-        private void label2_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void checkBox1_CheckedChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void button4_Click(object sender, EventArgs e)
-        {
-            if (textBox6.Text != "")
+            if (p1PageText.Text != "")
             {
                 try
                 {
-                    click = Convert.ToInt32(textBox6.Text);
+                    click = Convert.ToInt32(p1PageText.Text);
                 }
                 catch
                 {
@@ -388,17 +349,17 @@ namespace WindowsFormsApplication5
                 }
             }
             click++;
-            textBox3.Text = click.ToString();
-            textBox6.Text = click.ToString();
+            p1NameText.Text = click.ToString();
+            p1PageText.Text = click.ToString();
         }
 
-        private void button5_Click(object sender, EventArgs e)
+        private void p1PagePrevBtn_Click(object sender, EventArgs e)
         {
-            if (textBox6.Text != "")
+            if (p1PageText.Text != "")
             {
                 try
                 {
-                    click = Convert.ToInt32(textBox6.Text);
+                    click = Convert.ToInt32(p1PageText.Text);
                 }
                 catch
                 {
@@ -406,31 +367,27 @@ namespace WindowsFormsApplication5
                 }
             }
             click--;
-            textBox3.Text = click.ToString();
-            textBox6.Text = click.ToString();
+            p1NameText.Text = click.ToString();
+            p1PageText.Text = click.ToString();
         }
 
-        private void textBox3_TextChanged(object sender, EventArgs e)
+        private void p1NameText_TextClick(object sender, KeyEventArgs e)
         {
+            p1NameText.Text = p1PageText.Text;
         }
 
-        private void textBox3_TextClick(object sender, KeyEventArgs e)
+        private void btnOpen_Click(object sender, EventArgs e)
         {
-            textBox3.Text = textBox6.Text;
+            System.Diagnostics.Process.Start(fileSrcText.Text);
         }
 
-        private void button6_Click(object sender, EventArgs e)
+        private void p1DirPrevBtn_Click(object sender, EventArgs e)
         {
-            System.Diagnostics.Process.Start(textBox1.Text);
-        }
-
-        private void button7_Click(object sender, EventArgs e)
-        {
-            if (textBox8.Text != "")
+            if (p1DirText.Text != "")
             {
                 try
                 {
-                    dirCount = Convert.ToInt32(textBox8.Text);
+                    dirCount = Convert.ToInt32(p1DirText.Text);
                 }
                 catch
                 {
@@ -447,20 +404,20 @@ namespace WindowsFormsApplication5
             if (dirCount >= fi.Length)
                 dirCount = fi.Length;
 
-            textBox8.Text = dirCount.ToString();
+            p1DirText.Text = dirCount.ToString();
 
             if (fi.Length == 0) ;
             else
             {
-                textBox2.Text = fi[dirCount-1].Name.ToString();
+                p1SearchText.Text = fi[dirCount-1].Name.ToString();
             }
 
 
-            if (textBox6.Text != "")
+            if (p1PageText.Text != "")
             {
                 try
                 {
-                    click = Convert.ToInt32(textBox6.Text);
+                    click = Convert.ToInt32(p1PageText.Text);
                 }
                 catch
                 {
@@ -468,18 +425,18 @@ namespace WindowsFormsApplication5
                 }
             }
             click = dirCount;
-            textBox3.Text = dirCount.ToString();
-            textBox6.Text = dirCount.ToString();
+            p1NameText.Text = dirCount.ToString();
+            p1PageText.Text = dirCount.ToString();
 
         }
 
-        private void button8_Click(object sender, EventArgs e)
+        private void p1DirNextBtn_Click(object sender, EventArgs e)
         {
-            if (textBox8.Text != "")
+            if (p1DirText.Text != "")
             {
                 try
                 {
-                    dirCount = Convert.ToInt32(textBox8.Text);
+                    dirCount = Convert.ToInt32(p1DirText.Text);
                 }
                 catch
                 {
@@ -496,19 +453,19 @@ namespace WindowsFormsApplication5
             if (dirCount >= fi.Length)
                 dirCount = fi.Length;
 
-            textBox8.Text = dirCount.ToString();
+            p1DirText.Text = dirCount.ToString();
 
             if (fi.Length == 0) ;
             else
             {
-                textBox2.Text = fi[dirCount-1].Name.ToString();
+                p1SearchText.Text = fi[dirCount-1].Name.ToString();
             }
             
-            if (textBox6.Text != "")
+            if (p1PageText.Text != "")
             {
                 try
                 {
-                    click = Convert.ToInt32(textBox6.Text);
+                    click = Convert.ToInt32(p1PageText.Text);
                 }
                 catch
                 {
@@ -516,8 +473,8 @@ namespace WindowsFormsApplication5
                 }
             }
             click = dirCount;
-            textBox3.Text = dirCount.ToString();
-            textBox6.Text = dirCount.ToString();
+            p1NameText.Text = dirCount.ToString();
+            p1PageText.Text = dirCount.ToString();
 
             getPage();
         }
@@ -634,7 +591,6 @@ namespace WindowsFormsApplication5
         };
 
         bool close = false;
-        int imageNumber = 0;
         void getPageAllImage()
         {
             int imageNumber = 0;
@@ -705,7 +661,7 @@ namespace WindowsFormsApplication5
 
                 page.fileName.Text = fi[imageNumber].Name;
                 page.pageNo = imageNumber;
-                page.getPage(textBox11.Text, checkBox2.Checked);
+                page.getPage(p2SearchText.Text, p2Check1.Checked);
 
                 imageNumber++;
                 Thread.Sleep(10);
@@ -716,17 +672,7 @@ namespace WindowsFormsApplication5
             }
         }
 
-        private void tabPage1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void tabPage2_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void button9_Click_1(object sender, EventArgs e)
+        private void p2StartBtn_Click_1(object sender, EventArgs e)
         {
             getPageAllImage();
         }
@@ -736,19 +682,14 @@ namespace WindowsFormsApplication5
             close = true;
         }
 
-        private void checkBox2_CheckedChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void button10_Click(object sender, EventArgs e)
+        private void p3StartBtn_Click(object sender, EventArgs e)
         {
             Encoding encoding = Encoding.GetEncoding(737);
             System.Text.Encoding utf8 = System.Text.Encoding.UTF8;
 
             //변환하고자 하는 문자열을 UTF8 방식으로 변환하여 byte 배열로 반환
             byte[] utf8Bytes;
-            utf8Bytes = utf8.GetBytes(textBox10.Text);
+            utf8Bytes = utf8.GetBytes(p3Text.Text);
 
             //UTF-8을 string으로 변한
             string utf8String = "";
