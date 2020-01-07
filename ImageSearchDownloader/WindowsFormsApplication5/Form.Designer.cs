@@ -35,7 +35,7 @@
             this.p1StartBtn = new System.Windows.Forms.Button();
             this.p1SearchText = new System.Windows.Forms.TextBox();
             this.fileSrcText = new System.Windows.Forms.TextBox();
-            this.p1NameText = new System.Windows.Forms.TextBox();
+            this.nameText = new System.Windows.Forms.TextBox();
             this.p1DownBtn = new System.Windows.Forms.Button();
             this.p1Label3 = new System.Windows.Forms.Label();
             this.fileLabel = new System.Windows.Forms.Label();
@@ -64,7 +64,6 @@
             this.webBrowser2 = new System.Windows.Forms.WebBrowser();
             this.p3Text = new System.Windows.Forms.TextBox();
             this.p3StartBtn = new System.Windows.Forms.Button();
-            this.textBox9 = new System.Windows.Forms.TextBox();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
@@ -73,13 +72,12 @@
             // 
             // p1NextBtn
             // 
-            this.p1NextBtn.Location = new System.Drawing.Point(314, 5);
+            this.p1NextBtn.Location = new System.Drawing.Point(623, 4);
             this.p1NextBtn.Name = "p1NextBtn";
             this.p1NextBtn.Size = new System.Drawing.Size(75, 23);
             this.p1NextBtn.TabIndex = 0;
             this.p1NextBtn.Text = "다음이미지";
             this.p1NextBtn.UseVisualStyleBackColor = true;
-            this.p1NextBtn.Click += new System.EventHandler(this.p1NextBtn_Click_1);
             // 
             // contextMenuStrip1
             // 
@@ -93,7 +91,7 @@
             // 
             // p1StartBtn
             // 
-            this.p1StartBtn.Location = new System.Drawing.Point(189, 5);
+            this.p1StartBtn.Location = new System.Drawing.Point(498, 4);
             this.p1StartBtn.Name = "p1StartBtn";
             this.p1StartBtn.Size = new System.Drawing.Size(119, 23);
             this.p1StartBtn.TabIndex = 6;
@@ -103,9 +101,9 @@
             // 
             // p1SearchText
             // 
-            this.p1SearchText.Location = new System.Drawing.Point(57, 35);
+            this.p1SearchText.Location = new System.Drawing.Point(230, 5);
             this.p1SearchText.Name = "p1SearchText";
-            this.p1SearchText.Size = new System.Drawing.Size(311, 21);
+            this.p1SearchText.Size = new System.Drawing.Size(262, 21);
             this.p1SearchText.TabIndex = 7;
             // 
             // fileSrcText
@@ -115,17 +113,17 @@
             this.fileSrcText.Size = new System.Drawing.Size(181, 21);
             this.fileSrcText.TabIndex = 8;
             // 
-            // p1NameText
+            // nameText
             // 
-            this.p1NameText.Location = new System.Drawing.Point(989, 7);
-            this.p1NameText.Name = "p1NameText";
-            this.p1NameText.Size = new System.Drawing.Size(103, 21);
-            this.p1NameText.TabIndex = 8;
-            this.p1NameText.KeyDown += new System.Windows.Forms.KeyEventHandler(this.p1NameText_TextClick);
+            this.nameText.Location = new System.Drawing.Point(1207, 9);
+            this.nameText.Name = "nameText";
+            this.nameText.Size = new System.Drawing.Size(103, 21);
+            this.nameText.TabIndex = 8;
+            this.nameText.KeyDown += new System.Windows.Forms.KeyEventHandler(this.p1NameText_TextClick);
             // 
             // p1DownBtn
             // 
-            this.p1DownBtn.Location = new System.Drawing.Point(1098, 7);
+            this.p1DownBtn.Location = new System.Drawing.Point(1218, 7);
             this.p1DownBtn.Name = "p1DownBtn";
             this.p1DownBtn.Size = new System.Drawing.Size(75, 23);
             this.p1DownBtn.TabIndex = 9;
@@ -136,7 +134,7 @@
             // p1Label3
             // 
             this.p1Label3.AutoSize = true;
-            this.p1Label3.Location = new System.Drawing.Point(10, 41);
+            this.p1Label3.Location = new System.Drawing.Point(189, 10);
             this.p1Label3.Name = "p1Label3";
             this.p1Label3.Size = new System.Drawing.Size(41, 12);
             this.p1Label3.TabIndex = 10;
@@ -154,7 +152,7 @@
             // p1Label2
             // 
             this.p1Label2.AutoSize = true;
-            this.p1Label2.Location = new System.Drawing.Point(915, 13);
+            this.p1Label2.Location = new System.Drawing.Point(1144, 14);
             this.p1Label2.Name = "p1Label2";
             this.p1Label2.Size = new System.Drawing.Size(57, 12);
             this.p1Label2.TabIndex = 10;
@@ -188,7 +186,7 @@
             // 
             // p1PageNextBtn
             // 
-            this.p1PageNextBtn.Location = new System.Drawing.Point(816, 7);
+            this.p1PageNextBtn.Location = new System.Drawing.Point(1125, 6);
             this.p1PageNextBtn.Name = "p1PageNextBtn";
             this.p1PageNextBtn.Size = new System.Drawing.Size(75, 23);
             this.p1PageNextBtn.TabIndex = 12;
@@ -202,11 +200,10 @@
             this.proxyPortText.Name = "proxyPortText";
             this.proxyPortText.Size = new System.Drawing.Size(48, 21);
             this.proxyPortText.TabIndex = 14;
-            this.proxyPortText.DoubleClick += new System.EventHandler(this.goText0);
             // 
             // p1PagePrevBtn
             // 
-            this.p1PagePrevBtn.Location = new System.Drawing.Point(675, 7);
+            this.p1PagePrevBtn.Location = new System.Drawing.Point(984, 6);
             this.p1PagePrevBtn.Name = "p1PagePrevBtn";
             this.p1PagePrevBtn.Size = new System.Drawing.Size(75, 23);
             this.p1PagePrevBtn.TabIndex = 15;
@@ -216,7 +213,7 @@
             // 
             // p1PageText
             // 
-            this.p1PageText.Location = new System.Drawing.Point(756, 8);
+            this.p1PageText.Location = new System.Drawing.Point(1065, 7);
             this.p1PageText.Name = "p1PageText";
             this.p1PageText.Size = new System.Drawing.Size(54, 21);
             this.p1PageText.TabIndex = 16;
@@ -239,7 +236,7 @@
             // 
             // btnOpen
             // 
-            this.btnOpen.Location = new System.Drawing.Point(1067, 6);
+            this.btnOpen.Location = new System.Drawing.Point(1063, 7);
             this.btnOpen.Name = "btnOpen";
             this.btnOpen.Size = new System.Drawing.Size(75, 23);
             this.btnOpen.TabIndex = 18;
@@ -249,7 +246,7 @@
             // 
             // p1DirPrevBtn
             // 
-            this.p1DirPrevBtn.Location = new System.Drawing.Point(478, 5);
+            this.p1DirPrevBtn.Location = new System.Drawing.Point(787, 4);
             this.p1DirPrevBtn.Name = "p1DirPrevBtn";
             this.p1DirPrevBtn.Size = new System.Drawing.Size(75, 23);
             this.p1DirPrevBtn.TabIndex = 19;
@@ -259,7 +256,7 @@
             // 
             // p1DirNextBtn
             // 
-            this.p1DirNextBtn.Location = new System.Drawing.Point(559, 5);
+            this.p1DirNextBtn.Location = new System.Drawing.Point(868, 4);
             this.p1DirNextBtn.Name = "p1DirNextBtn";
             this.p1DirNextBtn.Size = new System.Drawing.Size(75, 23);
             this.p1DirNextBtn.TabIndex = 19;
@@ -269,7 +266,7 @@
             // 
             // p1DirText
             // 
-            this.p1DirText.Location = new System.Drawing.Point(412, 7);
+            this.p1DirText.Location = new System.Drawing.Point(721, 6);
             this.p1DirText.Name = "p1DirText";
             this.p1DirText.Size = new System.Drawing.Size(60, 21);
             this.p1DirText.TabIndex = 20;
@@ -295,12 +292,10 @@
             this.tabPage1.Controls.Add(this.p1SearchText);
             this.tabPage1.Controls.Add(this.p1DirText);
             this.tabPage1.Controls.Add(this.p1DirNextBtn);
-            this.tabPage1.Controls.Add(this.p1NameText);
             this.tabPage1.Controls.Add(this.p1DirPrevBtn);
             this.tabPage1.Controls.Add(this.p1Label3);
             this.tabPage1.Controls.Add(this.p1PageText);
             this.tabPage1.Controls.Add(this.p1PagePrevBtn);
-            this.tabPage1.Controls.Add(this.p1Label2);
             this.tabPage1.Controls.Add(this.p1PageNextBtn);
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
@@ -398,27 +393,21 @@
             this.p3StartBtn.UseVisualStyleBackColor = true;
             this.p3StartBtn.Click += new System.EventHandler(this.p3StartBtn_Click);
             // 
-            // textBox9
-            // 
-            this.textBox9.Location = new System.Drawing.Point(1148, 8);
-            this.textBox9.Name = "textBox9";
-            this.textBox9.Size = new System.Drawing.Size(41, 21);
-            this.textBox9.TabIndex = 24;
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1674, 913);
-            this.Controls.Add(this.textBox9);
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.proxyText);
             this.Controls.Add(this.proxyCheck);
             this.Controls.Add(this.proxyPortText);
             this.Controls.Add(this.fileSrcText);
             this.Controls.Add(this.proxyLabel);
+            this.Controls.Add(this.nameText);
             this.Controls.Add(this.fileLabel);
             this.Controls.Add(this.btnOpen);
+            this.Controls.Add(this.p1Label2);
             this.Name = "Form1";
             this.Text = "ImageSearchDownloader";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
@@ -442,7 +431,7 @@
         private System.Windows.Forms.TextBox p1SearchText;
         private System.Windows.Forms.Button p1StartBtn;
         private System.Windows.Forms.TextBox fileSrcText;
-        private System.Windows.Forms.TextBox p1NameText;
+        private System.Windows.Forms.TextBox nameText;
         private System.Windows.Forms.Button p1DownBtn;
         private System.Windows.Forms.Label p1Label3;
         private System.Windows.Forms.Label fileLabel;
@@ -464,7 +453,6 @@
         private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.TabPage tabPage2;
         private System.Windows.Forms.Button p2StartBtn;
-        private System.Windows.Forms.TextBox textBox9;
         private System.Windows.Forms.TabPage tabPage3;
         private System.Windows.Forms.WebBrowser webBrowser2;
         private System.Windows.Forms.TextBox p3Text;
