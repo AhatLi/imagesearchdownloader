@@ -520,5 +520,10 @@ namespace ImageSearchDownloader
             
             webBrowser2.Navigate(uri);
         }
+
+        private void btnOpenDir_Click(object sender, EventArgs e)
+        {
+            System.Diagnostics.Process.Start(Application.StartupPath + "\\imgFile");
+        }
     }
 }

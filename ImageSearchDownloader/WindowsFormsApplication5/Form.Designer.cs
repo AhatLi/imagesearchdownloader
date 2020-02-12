@@ -64,6 +64,7 @@
             this.webBrowser2 = new System.Windows.Forms.WebBrowser();
             this.p3Text = new System.Windows.Forms.TextBox();
             this.p3StartBtn = new System.Windows.Forms.Button();
+            this.btnOpenDir = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
@@ -393,11 +394,22 @@
             this.p3StartBtn.UseVisualStyleBackColor = true;
             this.p3StartBtn.Click += new System.EventHandler(this.p3StartBtn_Click);
             // 
+            // btnOpenDir
+            // 
+            this.btnOpenDir.Location = new System.Drawing.Point(1359, 8);
+            this.btnOpenDir.Name = "btnOpenDir";
+            this.btnOpenDir.Size = new System.Drawing.Size(75, 41);
+            this.btnOpenDir.TabIndex = 24;
+            this.btnOpenDir.Text = "폴더열기";
+            this.btnOpenDir.UseVisualStyleBackColor = true;
+            this.btnOpenDir.Click += new System.EventHandler(this.btnOpenDir_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1674, 913);
+            this.Controls.Add(this.btnOpenDir);
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.proxyText);
             this.Controls.Add(this.proxyCheck);
@@ -460,6 +472,7 @@
         private System.Windows.Forms.Label p2Label2;
         private System.Windows.Forms.TextBox p2SearchText;
         private System.Windows.Forms.CheckBox p2Check1;
+        private System.Windows.Forms.Button btnOpenDir;
     }
 }
 
