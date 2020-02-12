@@ -79,6 +79,7 @@
             this.p1NextBtn.TabIndex = 0;
             this.p1NextBtn.Text = "다음이미지";
             this.p1NextBtn.UseVisualStyleBackColor = true;
+            this.p1NextBtn.Click += new System.EventHandler(this.p1NextBtn_Click);
             // 
             // contextMenuStrip1
             // 

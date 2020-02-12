@@ -44,6 +44,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ImgPage.cs" />
     <Compile Include="MyWebClient.cs">
       <SubType>Component</SubType>
     </Compile>
