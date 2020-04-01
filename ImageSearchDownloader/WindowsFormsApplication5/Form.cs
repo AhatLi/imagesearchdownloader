@@ -34,6 +34,28 @@ namespace ImageSearchDownloader
 
         bool retry = true;
 
+        void allControlAdd()
+        {
+            this.tabPage1.Controls.Add(this.p1DownBtn);
+            this.tabPage1.Controls.Add(this.p1NextBtn);
+            this.tabPage1.Controls.Add(this.p1StartBtn);
+            this.tabPage1.Controls.Add(this.p1SearchText);
+            this.tabPage1.Controls.Add(this.p1DirText);
+            this.tabPage1.Controls.Add(this.p1DirNextBtn);
+            this.tabPage1.Controls.Add(this.p1DirPrevBtn);
+            this.tabPage1.Controls.Add(this.p1Label3);
+            this.tabPage1.Controls.Add(this.p1PageText);
+            this.tabPage1.Controls.Add(this.p1PagePrevBtn);
+            this.tabPage1.Controls.Add(this.p1PageNextBtn);
+            // 
+            // tabPage2
+            // 
+            this.tabPage2.AutoScroll = true;
+            this.tabPage2.Controls.Add(this.p2Label2);
+            this.tabPage2.Controls.Add(this.p2SearchText);
+            this.tabPage2.Controls.Add(this.p2Check1);
+            this.tabPage2.Controls.Add(this.p2StartBtn);
+        }
         
         void downloadPic(String fileName)
         {
@@ -46,7 +68,6 @@ namespace ImageSearchDownloader
                 {
                     di.Create();
                 }
-
 
                 string path = ".\\imgFile\\" + fileName + ".jpg";
                 MyWebClient WClient = new MyWebClient(10);
@@ -94,16 +115,8 @@ namespace ImageSearchDownloader
 
             return ret;
         }
-        
-        void getPage()
-        {
-            mainpage = new ImagePage(webBrowser);
-            makePage(mainpage, tabPage1, 0, p1SearchText.Text, p1SearchAddText.Text, false, 1);
-            mainpage.fileName.Text = p1SearchText.Text;
-            mainpage.getPage("", false);
-        }
 
-        private void goTextClass(object sender, MouseEventArgs e)
+        public void goTextClass(object sender, MouseEventArgs e)
         {
             try
             {
@@ -124,7 +137,7 @@ namespace ImageSearchDownloader
             }
         }
 
-        private void goOneTextClass(object sender, MouseEventArgs e)
+        public void goOneTextClass(object sender, MouseEventArgs e)
         {
             try
             {
@@ -158,18 +171,20 @@ namespace ImageSearchDownloader
             }
         }
 
-        private void downImageFunClass(object sender, EventArgs e)
+        public void downImageFunClass(object sender, EventArgs e)
         {
             downloadPic(nameText.Text);
         }
 
         private void reloadPage(object sender, EventArgs e, ImagePage page)
         {
-            page.getPage(p2SearchText.Text, p2Check1.Checked);
+            page.getPage(page.fileName.Text);
         }
 
         private void p1StartBtn_Click(object sender, EventArgs e)
         {
+            tabPage1.Controls.Clear();
+            allControlAdd();
             getPage();
         }
 
@@ -322,10 +337,28 @@ namespace ImageSearchDownloader
 
         List<ImagePage> imageVector = new List<ImagePage>();
 
+        void getPage()
+        {
+            mainpage = new ImagePage(webBrowser, this);
+
+            mainpage.makePage(0);
+
+            mainpage.panel.Location = new Point(0, 35);
+            mainpage.panel.Size = new Size(1620, 280);
+            mainpage.panel.AutoScroll = true;
+            tabPage1.Controls.Add(mainpage.panel);
+
+            mainpage.fileName.Text = p1SearchText.Text;
+            mainpage.getPage(mainpage.fileName.Text);
+        }
 
         bool close = false;
-        void getPageAllImage()
+
+        private void p2StartBtn_Click_1(object sender, EventArgs e)
         {
+            tabPage2.Controls.Clear();
+            allControlAdd();
+
             int imageNumber = 0;
 
             System.IO.DirectoryInfo di = new System.IO.DirectoryInfo(".");
@@ -333,13 +366,35 @@ namespace ImageSearchDownloader
 
             while (imageNumber < fi.Length)
             {
-                if(fin)
+                if (fin)
                 {
                     return;
                 }
 
-                ImagePage page = new ImagePage(webBrowser);
-                imageNumber = makePage(page, tabPage2, imageNumber, fi[imageNumber].Name, p2SearchText.Text, p2Check1.Checked);
+                ImagePage page = new ImagePage(webBrowser, this);
+                page.makePage(imageNumber);
+
+                page.panel.Location = new Point(0, 35 + imageNumber * 290);
+                page.panel.Size = new Size(1620, 280);
+                page.panel.AutoScroll = true;
+                tabPage2.Controls.Add(page.panel);
+
+                String searchText = "";
+                int index = fi[imageNumber].Name.IndexOf("[");
+                if (p2Check1.Checked && index >= 0)
+                {
+                    searchText = (p2SearchText.Text == "") ? "" : (p2SearchText.Text + " ");
+                    searchText += fi[imageNumber].Name.Replace("-", "+").Substring(fi[imageNumber].Name.IndexOf("["));
+                }
+                else
+                {
+                    searchText = (p2SearchText.Text == "") ? "" : (p2SearchText.Text + " ");
+                    searchText += fi[imageNumber].Name.Replace("-", "+");
+                }
+
+                page.getPage(searchText);
+
+                imageNumber++;
 
                 Thread.Sleep(10);
                 if (close)
@@ -347,77 +402,6 @@ namespace ImageSearchDownloader
                     break;
                 }
             }
-        }
-
-        public int makePage(ImagePage page, TabPage tabPage, int imageNumber, string filename, String name = "", Boolean check = false, int mode = 0)
-        {
-            for (int i = 0; i < 5; i++)
-            {
-                page.imgPage_title[i].Location = new Point(tabPage.AutoScrollPosition.X + 60 + (i * 310), tabPage.AutoScrollPosition.Y + 70 + (imageNumber * 280));
-                page.imgPage_title[i].Size = new Size(200, 20);
-                page.imgPage_title[i].Parent = tabPage;
-                tabPage.Controls.Add(page.imgPage_title[i]);
-
-                page.imgPage_img[i].Location = new Point(tabPage.AutoScrollPosition.X + 60 + (i * 310), tabPage.AutoScrollPosition.Y + 100 + (imageNumber * 280));
-                page.imgPage_img[i].Size = new Size(300, 200);
-                page.imgPage_img[i].Parent = tabPage;
-                tabPage.Controls.Add(page.imgPage_img[i]);
-                if(mode == 0)
-                    page.imgPage_img[i].MouseClick += new System.Windows.Forms.MouseEventHandler(this.goTextClass);
-                else
-                    page.imgPage_img[i].MouseClick += new System.Windows.Forms.MouseEventHandler(this.goOneTextClass);
-                page.imgPage_img[i].DoubleClick += new EventHandler(this.downImageFunClass);
-
-                page.imgPage_label[i].Location = new Point(tabPage.AutoScrollPosition.X + 60 + (i * 310), tabPage.AutoScrollPosition.Y + 280 + (imageNumber * 280));
-                page.imgPage_label[i].Size = new Size(300, 21);
-                page.imgPage_label[i].Parent = tabPage;
-                tabPage.Controls.Add(page.imgPage_label[i]);
-            }
-            page.pageNoBox.Location = new Point(tabPage.AutoScrollPosition.X + 10, tabPage.AutoScrollPosition.Y + 40 + (imageNumber * 280));
-            page.pageNoBox.Size = new Size(30, 21);
-            page.pageNoBox.Parent = tabPage;
-            tabPage.Controls.Add(page.pageNoBox);
-            page.pageNoBox.Text = (imageNumber + 1).ToString();
-
-            page.reload.Location = new Point(tabPage.AutoScrollPosition.X + 380, tabPage.AutoScrollPosition.Y + 40 + (imageNumber * 280));
-            page.reload.Size = new Size(100, 21);
-            page.reload.Text = "다시읽기";
-            page.reload.MouseClick += (sender, evt) =>
-            {
-                page.reloadPage(p2SearchText.Text, p2Check1.Checked);
-            };
-            tabPage.Controls.Add(page.reload);
-
-            page.nextBtn.Location = new Point(tabPage.AutoScrollPosition.X + 500, tabPage.AutoScrollPosition.Y + 40 + (imageNumber * 280));
-            page.nextBtn.Size = new Size(100, 21);
-            page.nextBtn.Text = "다음그림";
-            page.nextBtn.MouseClick += new System.Windows.Forms.MouseEventHandler(page.nextPic);
-
-            tabPage.Controls.Add(page.nextBtn);
-
-            page.checkBox.Location = new Point(tabPage.AutoScrollPosition.X + 10, tabPage.AutoScrollPosition.Y + 70 + (imageNumber * 280));
-            page.checkBox.Size = new Size(30, 21);
-            if (mode == 0)
-                page.checkBox.MouseClick += new System.Windows.Forms.MouseEventHandler(this.goTextClass);
-            else
-                page.checkBox.MouseClick += new System.Windows.Forms.MouseEventHandler(this.goOneTextClass);
-            tabPage.Controls.Add(page.checkBox);
-
-            page.fileName.Location = new Point(tabPage.AutoScrollPosition.X + 60, tabPage.AutoScrollPosition.Y + 40 + (imageNumber * 280));
-            page.fileName.Size = new Size(300, 21);
-            page.fileName.Parent = tabPage;
-            tabPage.Controls.Add(page.fileName);
-
-            page.fileName.Text = filename;
-            page.pageNo = imageNumber;
-            page.getPage(name, check);
-
-            return imageNumber + 1;
-        }
-
-        private void p2StartBtn_Click_1(object sender, EventArgs e)
-        {
-            getPageAllImage();
         }
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)

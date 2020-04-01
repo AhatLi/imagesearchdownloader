@@ -47,8 +47,6 @@
             this.proxyPortText = new System.Windows.Forms.TextBox();
             this.p1PagePrevBtn = new System.Windows.Forms.Button();
             this.p1PageText = new System.Windows.Forms.TextBox();
-            this.p1Label1 = new System.Windows.Forms.Label();
-            this.p1SearchAddText = new System.Windows.Forms.TextBox();
             this.btnOpen = new System.Windows.Forms.Button();
             this.p1DirPrevBtn = new System.Windows.Forms.Button();
             this.p1DirNextBtn = new System.Windows.Forms.Button();
@@ -73,7 +71,7 @@
             // 
             // p1NextBtn
             // 
-            this.p1NextBtn.Location = new System.Drawing.Point(623, 4);
+            this.p1NextBtn.Location = new System.Drawing.Point(440, 6);
             this.p1NextBtn.Name = "p1NextBtn";
             this.p1NextBtn.Size = new System.Drawing.Size(75, 23);
             this.p1NextBtn.TabIndex = 0;
@@ -93,7 +91,7 @@
             // 
             // p1StartBtn
             // 
-            this.p1StartBtn.Location = new System.Drawing.Point(498, 4);
+            this.p1StartBtn.Location = new System.Drawing.Point(315, 6);
             this.p1StartBtn.Name = "p1StartBtn";
             this.p1StartBtn.Size = new System.Drawing.Size(119, 23);
             this.p1StartBtn.TabIndex = 6;
@@ -103,7 +101,7 @@
             // 
             // p1SearchText
             // 
-            this.p1SearchText.Location = new System.Drawing.Point(230, 5);
+            this.p1SearchText.Location = new System.Drawing.Point(47, 7);
             this.p1SearchText.Name = "p1SearchText";
             this.p1SearchText.Size = new System.Drawing.Size(262, 21);
             this.p1SearchText.TabIndex = 7;
@@ -125,7 +123,7 @@
             // 
             // p1DownBtn
             // 
-            this.p1DownBtn.Location = new System.Drawing.Point(1218, 7);
+            this.p1DownBtn.Location = new System.Drawing.Point(1035, 9);
             this.p1DownBtn.Name = "p1DownBtn";
             this.p1DownBtn.Size = new System.Drawing.Size(75, 23);
             this.p1DownBtn.TabIndex = 9;
@@ -136,7 +134,7 @@
             // p1Label3
             // 
             this.p1Label3.AutoSize = true;
-            this.p1Label3.Location = new System.Drawing.Point(189, 10);
+            this.p1Label3.Location = new System.Drawing.Point(6, 12);
             this.p1Label3.Name = "p1Label3";
             this.p1Label3.Size = new System.Drawing.Size(41, 12);
             this.p1Label3.TabIndex = 10;
@@ -188,7 +186,7 @@
             // 
             // p1PageNextBtn
             // 
-            this.p1PageNextBtn.Location = new System.Drawing.Point(1125, 6);
+            this.p1PageNextBtn.Location = new System.Drawing.Point(942, 8);
             this.p1PageNextBtn.Name = "p1PageNextBtn";
             this.p1PageNextBtn.Size = new System.Drawing.Size(75, 23);
             this.p1PageNextBtn.TabIndex = 12;
@@ -205,7 +203,7 @@
             // 
             // p1PagePrevBtn
             // 
-            this.p1PagePrevBtn.Location = new System.Drawing.Point(984, 6);
+            this.p1PagePrevBtn.Location = new System.Drawing.Point(801, 8);
             this.p1PagePrevBtn.Name = "p1PagePrevBtn";
             this.p1PagePrevBtn.Size = new System.Drawing.Size(75, 23);
             this.p1PagePrevBtn.TabIndex = 15;
@@ -215,26 +213,10 @@
             // 
             // p1PageText
             // 
-            this.p1PageText.Location = new System.Drawing.Point(1065, 7);
+            this.p1PageText.Location = new System.Drawing.Point(882, 9);
             this.p1PageText.Name = "p1PageText";
             this.p1PageText.Size = new System.Drawing.Size(54, 21);
             this.p1PageText.TabIndex = 16;
-            // 
-            // p1Label1
-            // 
-            this.p1Label1.AutoSize = true;
-            this.p1Label1.Location = new System.Drawing.Point(8, 12);
-            this.p1Label1.Name = "p1Label1";
-            this.p1Label1.Size = new System.Drawing.Size(69, 12);
-            this.p1Label1.TabIndex = 10;
-            this.p1Label1.Text = "추가 검색어";
-            // 
-            // p1SearchAddText
-            // 
-            this.p1SearchAddText.Location = new System.Drawing.Point(83, 6);
-            this.p1SearchAddText.Name = "p1SearchAddText";
-            this.p1SearchAddText.Size = new System.Drawing.Size(100, 21);
-            this.p1SearchAddText.TabIndex = 17;
             // 
             // btnOpen
             // 
@@ -248,7 +230,7 @@
             // 
             // p1DirPrevBtn
             // 
-            this.p1DirPrevBtn.Location = new System.Drawing.Point(787, 4);
+            this.p1DirPrevBtn.Location = new System.Drawing.Point(604, 6);
             this.p1DirPrevBtn.Name = "p1DirPrevBtn";
             this.p1DirPrevBtn.Size = new System.Drawing.Size(75, 23);
             this.p1DirPrevBtn.TabIndex = 19;
@@ -258,7 +240,7 @@
             // 
             // p1DirNextBtn
             // 
-            this.p1DirNextBtn.Location = new System.Drawing.Point(868, 4);
+            this.p1DirNextBtn.Location = new System.Drawing.Point(685, 6);
             this.p1DirNextBtn.Name = "p1DirNextBtn";
             this.p1DirNextBtn.Size = new System.Drawing.Size(75, 23);
             this.p1DirNextBtn.TabIndex = 19;
@@ -268,7 +250,7 @@
             // 
             // p1DirText
             // 
-            this.p1DirText.Location = new System.Drawing.Point(721, 6);
+            this.p1DirText.Location = new System.Drawing.Point(538, 8);
             this.p1DirText.Name = "p1DirText";
             this.p1DirText.Size = new System.Drawing.Size(60, 21);
             this.p1DirText.TabIndex = 20;
@@ -286,8 +268,6 @@
             // 
             // tabPage1
             // 
-            this.tabPage1.Controls.Add(this.p1SearchAddText);
-            this.tabPage1.Controls.Add(this.p1Label1);
             this.tabPage1.Controls.Add(this.p1DownBtn);
             this.tabPage1.Controls.Add(this.p1NextBtn);
             this.tabPage1.Controls.Add(this.p1StartBtn);
@@ -456,8 +436,6 @@
         private System.Windows.Forms.TextBox proxyPortText;
         private System.Windows.Forms.Button p1PagePrevBtn;
         private System.Windows.Forms.TextBox p1PageText;
-        private System.Windows.Forms.Label p1Label1;
-        private System.Windows.Forms.TextBox p1SearchAddText;
         private System.Windows.Forms.Button btnOpen;
         private System.Windows.Forms.Button p1DirPrevBtn;
         private System.Windows.Forms.Button p1DirNextBtn;
@@ -471,8 +449,8 @@
         private System.Windows.Forms.TextBox p3Text;
         private System.Windows.Forms.Button p3StartBtn;
         private System.Windows.Forms.Label p2Label2;
-        private System.Windows.Forms.TextBox p2SearchText;
-        private System.Windows.Forms.CheckBox p2Check1;
+        public System.Windows.Forms.TextBox p2SearchText;
+        public System.Windows.Forms.CheckBox p2Check1;
         private System.Windows.Forms.Button btnOpenDir;
     }
 }
