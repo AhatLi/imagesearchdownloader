@@ -11,6 +11,7 @@ namespace ImageSearchDownloader
     public class ImagePage
     {
         public int pageNo;
+        public int start;
         public TextBox fileName;
         public TextBox pageNoBox;
         public Button reload;
@@ -38,6 +39,7 @@ namespace ImageSearchDownloader
             panel = new Panel();
             client = new MyWebClient(3);
             contentNo = 0;
+            start = 1;
             client.Encoding = Encoding.UTF8;
 
             for (int i = 0; i < 5; i++)
@@ -53,12 +55,12 @@ namespace ImageSearchDownloader
         {
             for (int i = 0; i < 5; i++)
             {
-                imgPage_title[i].Location = new Point(30 + (i * 310), 30);
+                imgPage_title[i].Location = new Point(10 + (i * 310), 30);
                 imgPage_title[i].Size = new Size(300, 20);
                 imgPage_title[i].Parent = panel;
                 panel.Controls.Add(imgPage_title[i]);
 
-                imgPage_img[i].Location = new Point(20 + (i * 310), 50);
+                imgPage_img[i].Location = new Point(10 + (i * 310), 50);
                 imgPage_img[i].Size = new Size(300, 200);
                 imgPage_img[i].Parent = panel;
                 imgPage_img[i].BackgroundImageLayout = ImageLayout.Zoom;
@@ -71,9 +73,8 @@ namespace ImageSearchDownloader
 
                 imgPage_img[i].DoubleClick += new EventHandler(mainForm.downImageFunClass);
 
-
-                imgSize_label[i].Location = new Point(50 + (i * 310), 255);
-                imgSize_label[i].Size = new Size(300, 21);
+                imgSize_label[i].Location = new Point(100 + (i * 310), 255);
+                imgSize_label[i].Size = new Size(100, 20);
                 imgSize_label[i].Parent = panel;
                 panel.Controls.Add(imgSize_label[i]);
                 imgSize_label[i].Text = "333";
@@ -84,7 +85,7 @@ namespace ImageSearchDownloader
             panel.Controls.Add(pageNoBox);
             pageNoBox.Text = (pageno + 1).ToString();
 
-            reload.Location = new Point(360, 0);
+            reload.Location = new Point(560, 0);
             reload.Size = new Size(100, 21);
             reload.Text = "다시읽기";
             reload.MouseClick += (sender, evt) =>
@@ -93,19 +94,19 @@ namespace ImageSearchDownloader
             };
             panel.Controls.Add(reload);
 
-            nextBtn.Location = new Point(460, 0);
+            nextBtn.Location = new Point(455, 0);
             nextBtn.Size = new Size(100, 21);
             nextBtn.Text = "다음그림";
             nextBtn.MouseClick += new System.Windows.Forms.MouseEventHandler(nextPic);
             panel.Controls.Add(nextBtn);
 
-            prevBtn.Location = new Point(565, 0);
+            prevBtn.Location = new Point(45, 0);
             prevBtn.Size = new Size(100, 21);
             prevBtn.Text = "이전그림";
             prevBtn.MouseClick += new System.Windows.Forms.MouseEventHandler(prevPic);
             panel.Controls.Add(prevBtn);
 
-            fileName.Location = new Point(60, 0);
+            fileName.Location = new Point(150, 0);
             fileName.Size = new Size(300, 21);
             fileName.Parent = panel;
             panel.Controls.Add(fileName);
@@ -121,7 +122,7 @@ namespace ImageSearchDownloader
         public void getPage(String searchText)
         {
             fileName.Text = searchText;
-            string uri = "https://www.googleapis.com/customsearch/v1?searchType=image&cx=000379657054140898502:5o98cmmg4va&key=AIzaSyCa_x19zmBMcvo5fKOluRFBNaJmg6_C-z8&q=" + searchText;
+            string uri = "https://www.googleapis.com/customsearch/v1?searchType=image&cx=000379657054140898502:5o98cmmg4va&key=AIzaSyCa_x19zmBMcvo5fKOluRFBNaJmg6_C-z8&start=" + start + "&q=" + searchText;
 
             String response = client.DownloadString(uri);
             JsonDocument document = JsonDocument.Parse(response);
@@ -207,20 +208,50 @@ namespace ImageSearchDownloader
         public void nextPic(object sender, MouseEventArgs e)
         {
             contentNo += 5;
-            if(contentNo >= items.GetArrayLength() - 5)
-                contentNo = items.GetArrayLength() - 5;
-            getPic();
+
+            if(start < 100 && contentNo >= items.GetArrayLength())
+            {
+                contentNo = 0;
+                start += 10;
+                getPage(fileName.Text);
+                getPic();
+            }
+            else if(start < 100)
+            {
+                contentNo = 5;
+                getPic();
+            }
+            else
+            {
+                contentNo = 5;
+            }
         }
         public void prevPic(object sender, MouseEventArgs e)
         {
             contentNo -= 5;
-            if (contentNo < 0)
+
+            if (start > 1 && contentNo < 0)
+            {
+                contentNo = 5;
+                start -= 10;
+                getPage(fileName.Text);
+                getPic();
+            }
+            else if(start > 1)
+            {
                 contentNo = 0;
-            getPic();
+                getPic();
+            }
+            else
+            {
+                contentNo = 0;
+            }
         }
 
         public void reloadPage(String name)
         {
+            start = 1;
+            contentNo = 0;
             getPage(name);
         }
     };

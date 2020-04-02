@@ -190,7 +190,7 @@
             this.p1PageNextBtn.Name = "p1PageNextBtn";
             this.p1PageNextBtn.Size = new System.Drawing.Size(75, 23);
             this.p1PageNextBtn.TabIndex = 12;
-            this.p1PageNextBtn.Text = "다음";
+            this.p1PageNextBtn.Text = "이름 다음";
             this.p1PageNextBtn.UseVisualStyleBackColor = true;
             this.p1PageNextBtn.Click += new System.EventHandler(this.p1PageNextBtn_Click);
             // 
@@ -207,7 +207,7 @@
             this.p1PagePrevBtn.Name = "p1PagePrevBtn";
             this.p1PagePrevBtn.Size = new System.Drawing.Size(75, 23);
             this.p1PagePrevBtn.TabIndex = 15;
-            this.p1PagePrevBtn.Text = "이전";
+            this.p1PagePrevBtn.Text = "이름 이전";
             this.p1PagePrevBtn.UseVisualStyleBackColor = true;
             this.p1PagePrevBtn.Click += new System.EventHandler(this.p1PagePrevBtn_Click);
             // 
