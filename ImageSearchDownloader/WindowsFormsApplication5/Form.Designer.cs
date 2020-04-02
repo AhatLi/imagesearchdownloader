@@ -63,6 +63,8 @@
             this.p3Text = new System.Windows.Forms.TextBox();
             this.p3StartBtn = new System.Windows.Forms.Button();
             this.btnOpenDir = new System.Windows.Forms.Button();
+            this.extText = new System.Windows.Forms.TextBox();
+            this.statusLabel = new System.Windows.Forms.Label();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
@@ -108,17 +110,18 @@
             // 
             // fileSrcText
             // 
-            this.fileSrcText.Location = new System.Drawing.Point(876, 8);
+            this.fileSrcText.Location = new System.Drawing.Point(792, 5);
             this.fileSrcText.Name = "fileSrcText";
             this.fileSrcText.Size = new System.Drawing.Size(181, 21);
             this.fileSrcText.TabIndex = 8;
             // 
             // nameText
             // 
-            this.nameText.Location = new System.Drawing.Point(1211, 8);
+            this.nameText.Location = new System.Drawing.Point(1123, 5);
             this.nameText.Name = "nameText";
             this.nameText.Size = new System.Drawing.Size(103, 21);
             this.nameText.TabIndex = 8;
+            this.nameText.Text = "1";
             this.nameText.KeyDown += new System.Windows.Forms.KeyEventHandler(this.p1NameText_TextClick);
             // 
             // p1DownBtn
@@ -143,7 +146,7 @@
             // fileLabel
             // 
             this.fileLabel.AutoSize = true;
-            this.fileLabel.Location = new System.Drawing.Point(765, 14);
+            this.fileLabel.Location = new System.Drawing.Point(681, 9);
             this.fileLabel.Name = "fileLabel";
             this.fileLabel.Size = new System.Drawing.Size(105, 12);
             this.fileLabel.TabIndex = 10;
@@ -152,7 +155,7 @@
             // p1Label2
             // 
             this.p1Label2.AutoSize = true;
-            this.p1Label2.Location = new System.Drawing.Point(1148, 13);
+            this.p1Label2.Location = new System.Drawing.Point(1060, 9);
             this.p1Label2.Name = "p1Label2";
             this.p1Label2.Size = new System.Drawing.Size(57, 12);
             this.p1Label2.TabIndex = 10;
@@ -160,7 +163,7 @@
             // 
             // proxyText
             // 
-            this.proxyText.Location = new System.Drawing.Point(411, 12);
+            this.proxyText.Location = new System.Drawing.Point(327, 5);
             this.proxyText.Name = "proxyText";
             this.proxyText.Size = new System.Drawing.Size(181, 21);
             this.proxyText.TabIndex = 8;
@@ -168,7 +171,7 @@
             // proxyLabel
             // 
             this.proxyLabel.AutoSize = true;
-            this.proxyLabel.Location = new System.Drawing.Point(304, 17);
+            this.proxyLabel.Location = new System.Drawing.Point(220, 9);
             this.proxyLabel.Name = "proxyLabel";
             this.proxyLabel.Size = new System.Drawing.Size(105, 12);
             this.proxyLabel.TabIndex = 10;
@@ -177,7 +180,7 @@
             // proxyCheck
             // 
             this.proxyCheck.AutoSize = true;
-            this.proxyCheck.Location = new System.Drawing.Point(652, 14);
+            this.proxyCheck.Location = new System.Drawing.Point(568, 7);
             this.proxyCheck.Name = "proxyCheck";
             this.proxyCheck.Size = new System.Drawing.Size(88, 16);
             this.proxyCheck.TabIndex = 11;
@@ -196,7 +199,7 @@
             // 
             // proxyPortText
             // 
-            this.proxyPortText.Location = new System.Drawing.Point(594, 12);
+            this.proxyPortText.Location = new System.Drawing.Point(510, 5);
             this.proxyPortText.Name = "proxyPortText";
             this.proxyPortText.Size = new System.Drawing.Size(48, 21);
             this.proxyPortText.TabIndex = 14;
@@ -217,10 +220,11 @@
             this.p1PageText.Name = "p1PageText";
             this.p1PageText.Size = new System.Drawing.Size(54, 21);
             this.p1PageText.TabIndex = 16;
+            this.p1PageText.Text = "1";
             // 
             // btnOpen
             // 
-            this.btnOpen.Location = new System.Drawing.Point(1063, 7);
+            this.btnOpen.Location = new System.Drawing.Point(979, 4);
             this.btnOpen.Name = "btnOpen";
             this.btnOpen.Size = new System.Drawing.Size(75, 23);
             this.btnOpen.TabIndex = 18;
@@ -385,11 +389,29 @@
             this.btnOpenDir.UseVisualStyleBackColor = true;
             this.btnOpenDir.Click += new System.EventHandler(this.btnOpenDir_Click);
             // 
+            // extText
+            // 
+            this.extText.Location = new System.Drawing.Point(1232, 5);
+            this.extText.Name = "extText";
+            this.extText.Size = new System.Drawing.Size(103, 21);
+            this.extText.TabIndex = 8;
+            this.extText.KeyDown += new System.Windows.Forms.KeyEventHandler(this.p1NameText_TextClick);
+            // 
+            // statusLabel
+            // 
+            this.statusLabel.Font = new System.Drawing.Font("굴림", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.statusLabel.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.statusLabel.Location = new System.Drawing.Point(326, 32);
+            this.statusLabel.Name = "statusLabel";
+            this.statusLabel.Size = new System.Drawing.Size(800, 20);
+            this.statusLabel.TabIndex = 0;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1674, 913);
+            this.Controls.Add(this.statusLabel);
             this.Controls.Add(this.btnOpenDir);
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.proxyText);
@@ -397,6 +419,7 @@
             this.Controls.Add(this.proxyPortText);
             this.Controls.Add(this.fileSrcText);
             this.Controls.Add(this.proxyLabel);
+            this.Controls.Add(this.extText);
             this.Controls.Add(this.nameText);
             this.Controls.Add(this.fileLabel);
             this.Controls.Add(this.btnOpen);
@@ -452,6 +475,8 @@
         public System.Windows.Forms.TextBox p2SearchText;
         public System.Windows.Forms.CheckBox p2Check1;
         private System.Windows.Forms.Button btnOpenDir;
+        private System.Windows.Forms.TextBox extText;
+        private System.Windows.Forms.Label statusLabel;
     }
 }
 

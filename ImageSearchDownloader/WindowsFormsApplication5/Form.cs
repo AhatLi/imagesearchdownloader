@@ -59,7 +59,7 @@ namespace ImageSearchDownloader
             this.tabPage2.Controls.Add(this.p2StartBtn);
         }
         
-        void downloadPic(String fileName)
+        void downloadPic(String fileName, String ext)
         {
             try
             {
@@ -71,7 +71,7 @@ namespace ImageSearchDownloader
                     di.Create();
                 }
 
-                string path = ".\\imgFile\\" + fileName + ".jpg";
+                string path = ".\\imgFile\\" + fileName + ext;
                 MyWebClient WClient = new MyWebClient(10);
 
                 if (proxyCheck.Checked)
@@ -93,17 +93,33 @@ namespace ImageSearchDownloader
                     {
                         retry = false;
                         proxyCheck.Checked = !proxyCheck.Checked;
-                        downloadPic(fileName);
+                        downloadPic(fileName, ext);
                         retry = true;
                         proxyCheck.Checked = !proxyCheck.Checked;
                     }
                 }
 
                 WClient.Dispose();
+                statusLabel.Text = "";
             }
             catch(Exception e)
             {
-                MessageBox.Show(e.Message);
+                statusLabel.Text = e.Message;
+
+                if (p1PageText.Text != "")
+                {
+                    try
+                    {
+                        click = Convert.ToInt32(p1PageText.Text);
+                    }
+                    catch
+                    {
+
+                    }
+                }
+                click--;
+                nameText.Text = click.ToString();
+                p1PageText.Text = click.ToString();
             }
         }
 
@@ -118,64 +134,60 @@ namespace ImageSearchDownloader
             return ret;
         }
 
-        public void goTextClass(object sender, MouseEventArgs e)
+        public void goTextMode0Class(object sender, MouseEventArgs e)
         {
             try
             {
-                String infoText = ((PictureBox)sender).Name;
-                String fileSrc = infoText.Substring(infoText.IndexOf(";") + 1, infoText.LastIndexOf(";"));
-                fileSrc = fileSrc.Substring(0, fileSrc.LastIndexOf(";"));
-                String fileName = infoText.Substring(infoText.LastIndexOf(";") + 1);
+                String infoText = ((MyPictureBox)sender).Name;
 
-                int a = infoText.IndexOf(";") + 1;
-                int b = infoText.LastIndexOf(";");
-
-                fileSrcText.Text = fileSrc;
-                nameText.Text = fileName;
-                Clipboard.SetText(fileSrc);
+                fileSrcText.Text = ((MyPictureBox)sender).imgLink;
+                nameText.Text = ((MyPictureBox)sender).pageNo;
+                extText.Text = ((MyPictureBox)sender).ext;
+                Clipboard.SetText(((MyPictureBox)sender).imgLink);
             }
             catch
             {
             }
         }
 
-        public void goOneTextClass(object sender, MouseEventArgs e)
+        public void goTextMode1Class(object sender, MouseEventArgs e)
         {
             try
             {
-                String infoText = ((PictureBox)sender).Name;
-                String fileSrc = infoText.Substring(infoText.IndexOf(";") + 1, infoText.LastIndexOf(";"));
-                fileSrc = fileSrc.Substring(0, fileSrc.LastIndexOf(";"));
+                String infoText = ((MyPictureBox)sender).Name;
 
-                int a = infoText.IndexOf(";") + 1;
-                int b = infoText.LastIndexOf(";");
+                fileSrcText.Text = ((MyPictureBox)sender).imgLink;
+                extText.Text = ((MyPictureBox)sender).ext;
+                Clipboard.SetText(((MyPictureBox)sender).imgLink);
+            }
+            catch
+            {
+            }
+        }
 
-                fileSrcText.Text = fileSrc;
-                Clipboard.SetText(fileSrc);
+        public void downImageFunMode0Class(object sender, EventArgs e)
+        {
+            downloadPic(nameText.Text, extText.Text);
+        }
 
-                if (p1PageText.Text != "")
+        public void downImageFunMode1Class(object sender, EventArgs e)
+        {
+            downloadPic(nameText.Text, extText.Text);
+
+            if (p1PageText.Text != "")
+            {
+                try
                 {
-                    try
-                    {
-                        click = Convert.ToInt32(p1PageText.Text);
-                    }
-                    catch
-                    {
-
-                    }
+                    click = Convert.ToInt32(p1PageText.Text);
                 }
-                click++;
-                nameText.Text = click.ToString();
-                p1PageText.Text = click.ToString();
-            }
-            catch
-            {
-            }
-        }
+                catch
+                {
 
-        public void downImageFunClass(object sender, EventArgs e)
-        {
-            downloadPic(nameText.Text);
+                }
+            }
+            click++;
+            nameText.Text = click.ToString();
+            p1PageText.Text = click.ToString();
         }
 
         private void p1StartBtn_Click(object sender, EventArgs e)
@@ -187,7 +199,7 @@ namespace ImageSearchDownloader
 
         private void p1DownBtn_Click(object sender, EventArgs e)
         {
-            downloadPic(nameText.Text);
+            downloadPic(nameText.Text, extText.Text);
         }
 
         private void p1PageNextBtn_Click(object sender, EventArgs e)
@@ -367,6 +379,9 @@ namespace ImageSearchDownloader
                 {
                     return;
                 }
+
+                if (fi[imageNumber].Name == "imgFile")
+                    continue;
 
                 ImagePage page = new ImagePage(this);
                 page.makePage(imageNumber);

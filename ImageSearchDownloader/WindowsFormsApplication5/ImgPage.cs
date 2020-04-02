@@ -22,8 +22,9 @@ namespace ImageSearchDownloader
         Form1 mainForm;
         JsonElement items;
         int contentNo;
+        static Label label;
 
-        public PictureBox[] imgPage_img = new PictureBox[5];
+        public MyPictureBox[] imgPage_img = new MyPictureBox[5];
         public Label[] imgPage_title = new Label[5];
         public Label[] imgSize_label = new Label[5];
         public Button[] c = new Button[5];
@@ -38,14 +39,14 @@ namespace ImageSearchDownloader
             prevBtn = new Button();
             panel = new Panel();
             client = new MyWebClient(3);
-            contentNo = 0;
-            start = 1;
             client.Encoding = Encoding.UTF8;
+            contentNo = 0;
+            start = 0;
 
             for (int i = 0; i < 5; i++)
             {
                 imgPage_title[i] = new Label();
-                imgPage_img[i] = new PictureBox();
+                imgPage_img[i] = new MyPictureBox();
                 imgSize_label[i] = new Label();
                 c[i] = new Button();
             }
@@ -67,11 +68,15 @@ namespace ImageSearchDownloader
                 panel.Controls.Add(imgPage_img[i]);
 
                 if (mode == 0)
-                    imgPage_img[i].MouseClick += new System.Windows.Forms.MouseEventHandler(mainForm.goTextClass);
+                {
+                    imgPage_img[i].MouseClick += new System.Windows.Forms.MouseEventHandler(mainForm.goTextMode0Class);
+                    imgPage_img[i].DoubleClick += new EventHandler(mainForm.downImageFunMode0Class);
+                }
                 else
-                    imgPage_img[i].MouseClick += new System.Windows.Forms.MouseEventHandler(mainForm.goOneTextClass);
-
-                imgPage_img[i].DoubleClick += new EventHandler(mainForm.downImageFunClass);
+                {
+                    imgPage_img[i].MouseClick += new System.Windows.Forms.MouseEventHandler(mainForm.goTextMode1Class);
+                    imgPage_img[i].DoubleClick += new EventHandler(mainForm.downImageFunMode1Class);
+                }
 
                 imgSize_label[i].Location = new Point(100 + (i * 310), 255);
                 imgSize_label[i].Size = new Size(100, 20);
@@ -124,13 +129,15 @@ namespace ImageSearchDownloader
             try
             {
                 fileName.Text = searchText;
-                string uri = "https://www.googleapis.com/customsearch/v1?searchType=image&cx=000379657054140898502:5o98cmmg4va&key=AIzaSyCa_x19zmBMcvo5fKOluRFBNaJmg6_C-z8&start=" + start + "&q=" + searchText;
+
+                string uri = "https://cse.google.com/cse/element/v1?rsz=filtered_cse&num=20&hl=en&source=gcsc&gss=.com&cselibv=8b2252448421acb3&searchtype=image&cx=000379657054140898502:5o98cmmg4va&safe=off&cse_tok=AJvRUv2amDHFh_Uj1EDdkxaUznKA:1585806963254&exp=csqr,cc&callback=google.search.cse.api12203&start=" + start + "&q=" + searchText;
 
                 String response = client.DownloadString(uri);
+                response = response.Substring(response.IndexOf("(") + 1, response.LastIndexOf(")") - (response.IndexOf("(") + 1));
                 JsonDocument document = JsonDocument.Parse(response);
                 JsonElement root = document.RootElement;
 
-                if (!root.TryGetProperty("items", out items))
+                if (!root.TryGetProperty("results", out items))
                 {
                     JsonElement error;
                     if (root.TryGetProperty("error", out error))
@@ -156,8 +163,6 @@ namespace ImageSearchDownloader
                 }
                 else
                 {
-                    items = root.GetProperty("items");
-
                     getPic();
                 }
             }
@@ -185,30 +190,49 @@ namespace ImageSearchDownloader
 
                     if(item.TryGetProperty("title", out JsonElement titleElement))
                     {
-                        String title = titleElement.GetString();
+                        String title = titleElement.GetString().Replace("<b>", "").Replace("</b>", ""); ;
                         imgPage_title[i - contentNo].Text = title;
                     }
-                    if(item.TryGetProperty("link", out JsonElement linkElement))
+                    if(item.TryGetProperty("url", out JsonElement linkElement))
                     {
                         String link = linkElement.GetString();
-                        imgPage_img[i - contentNo].Name = (pageNo + 1).ToString() + ";" + link + ";" + pageNoBox.Text;
-                    }
-                    if (item.TryGetProperty("image", out JsonElement image))
-                    {
-                        if (image.TryGetProperty("height", out JsonElement heightElement) && image.TryGetProperty("width", out JsonElement widthElement))
-                        {
-                            int height = heightElement.GetInt32();
-                            int width = widthElement.GetInt32();
 
-                            imgSize_label[i - contentNo].Text = width + " * " + height;
-                        }
-                        if (image.TryGetProperty("thumbnailLink", out JsonElement thumbnailLinkElement))
+                        imgPage_img[i - contentNo].pageNo = pageNoBox.Text.ToString();
+                        imgPage_img[i - contentNo].imgLink = link;
+                    }
+                    if (item.TryGetProperty("height", out JsonElement heightElement) && item.TryGetProperty("width", out JsonElement widthElement))
+                    {
+                        String height = heightElement.GetString();
+                        String width = widthElement.GetString();
+
+                        imgSize_label[i - contentNo].Text = width + " * " + height;
+                    }
+                    if (item.TryGetProperty("tbMedUrl", out JsonElement thumbnailLinkElement))
+                    {
+                        String thumbnailLink = thumbnailLinkElement.GetString();
+                        byte[] myDataBuffer = WClient.DownloadData(thumbnailLink);
+                        Stream stream = new MemoryStream();
+                        stream.Write(myDataBuffer, 0, myDataBuffer.Length);
+                        imgPage_img[i - contentNo].BackgroundImage = Image.FromStream(stream, true);
+                    }
+                    if (item.TryGetProperty("fileFormat", out JsonElement extElement))
+                    {
+                        String ext = extElement.GetString();
+                        if(ext == "image/jpeg")
                         {
-                            String thumbnailLink = thumbnailLinkElement.GetString();
-                            byte[] myDataBuffer = WClient.DownloadData(thumbnailLink);
-                            Stream stream = new MemoryStream();
-                            stream.Write(myDataBuffer, 0, myDataBuffer.Length);
-                            imgPage_img[i - contentNo].BackgroundImage = Image.FromStream(stream, true);
+                            imgPage_img[i - contentNo].ext = ".jpg";
+                        }
+                        else if (ext == "image/png")
+                        {
+                            imgPage_img[i - contentNo].ext = ".png";
+                        }
+                        else if (ext == "image/gif")
+                        {
+                            imgPage_img[i - contentNo].ext = ".gif";
+                        }
+                        else
+                        {
+                            imgPage_img[i - contentNo].ext = ".jpg";
                         }
                     }
                 }
@@ -221,44 +245,46 @@ namespace ImageSearchDownloader
 
         public void nextPic(object sender, MouseEventArgs e)
         {
+            int tmp = contentNo;
             contentNo += 5;
 
-            if(start < 100 && contentNo >= items.GetArrayLength())
+            if(start < 500 && contentNo >= items.GetArrayLength())
             {
                 contentNo = 0;
-                start += 10;
+                start += 20;
                 getPage(fileName.Text);
                 getPic();
             }
-            else if(start < 100)
+            else if(start >= 500 && contentNo >= items.GetArrayLength())
             {
-                contentNo = 5;
-                getPic();
+                contentNo = 15;
             }
-            else
+
+            if(tmp != contentNo)
             {
-                contentNo = 5;
+                getPic();
             }
         }
         public void prevPic(object sender, MouseEventArgs e)
         {
+            int tmp = contentNo;
             contentNo -= 5;
 
             if (start > 1 && contentNo < 0)
             {
-                contentNo = 5;
-                start -= 10;
+                contentNo = 15;
+                start -= 20;
                 getPage(fileName.Text);
                 getPic();
             }
-            else if(start > 1)
+            else if (start < 1 && contentNo < 0)
             {
                 contentNo = 0;
-                getPic();
             }
-            else
+
+            if (tmp != contentNo)
             {
-                contentNo = 0;
+                getPic();
             }
         }
 
