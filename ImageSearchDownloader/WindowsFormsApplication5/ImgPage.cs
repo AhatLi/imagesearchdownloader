@@ -121,42 +121,49 @@ namespace ImageSearchDownloader
 
         public void getPage(String searchText)
         {
-            fileName.Text = searchText;
-            string uri = "https://www.googleapis.com/customsearch/v1?searchType=image&cx=000379657054140898502:5o98cmmg4va&key=AIzaSyCa_x19zmBMcvo5fKOluRFBNaJmg6_C-z8&start=" + start + "&q=" + searchText;
-
-            String response = client.DownloadString(uri);
-            JsonDocument document = JsonDocument.Parse(response);
-            JsonElement root = document.RootElement;
-
-            if(!root.TryGetProperty("items", out items))
+            try
             {
-                JsonElement error;
-                if (root.TryGetProperty("error", out error))
+                fileName.Text = searchText;
+                string uri = "https://www.googleapis.com/customsearch/v1?searchType=image&cx=000379657054140898502:5o98cmmg4va&key=AIzaSyCa_x19zmBMcvo5fKOluRFBNaJmg6_C-z8&start=" + start + "&q=" + searchText;
+
+                String response = client.DownloadString(uri);
+                JsonDocument document = JsonDocument.Parse(response);
+                JsonElement root = document.RootElement;
+
+                if (!root.TryGetProperty("items", out items))
                 {
-                    JsonElement code;
-                    JsonElement message;
-                    String errorMessage = "ERROR !, ";
-                    if (error.TryGetProperty("error", out code))
+                    JsonElement error;
+                    if (root.TryGetProperty("error", out error))
                     {
-                        errorMessage = code.GetInt32().ToString();
+                        JsonElement code;
+                        JsonElement message;
+                        String errorMessage = "ERROR !, ";
+                        if (error.TryGetProperty("error", out code))
+                        {
+                            errorMessage = code.GetInt32().ToString();
+                        }
+                        errorMessage += " : ";
+                        if (error.TryGetProperty("error", out message))
+                        {
+                            errorMessage += message.GetString().ToString();
+                        }
+                        MessageBox.Show(errorMessage);
                     }
-                    errorMessage += " : ";
-                    if (error.TryGetProperty("error", out message))
+                    else
                     {
-                        errorMessage += message.GetString().ToString();
+                        MessageBox.Show("아이템이 없음");
                     }
-                    MessageBox.Show(errorMessage);
                 }
                 else
                 {
-                    MessageBox.Show("아이템이 없음");
+                    items = root.GetProperty("items");
+
+                    getPic();
                 }
             }
-            else
+            catch(Exception e)
             {
-                items = root.GetProperty("items");
-
-                getPic();
+                MessageBox.Show(e.ToString());
             }
         }
 
@@ -176,27 +183,34 @@ namespace ImageSearchDownloader
                     if (i - contentNo >= 5)
                         break;
 
-                    item.TryGetProperty("title", out JsonElement titleElement);
-                    item.TryGetProperty("link", out JsonElement linkElement);
-                    item.TryGetProperty("image", out JsonElement image);
-                    image.TryGetProperty("height", out JsonElement heightElement);
-                    image.TryGetProperty("width", out JsonElement widthElement);
-                    image.TryGetProperty("thumbnailLink", out JsonElement thumbnailLinkElement);
+                    if(item.TryGetProperty("title", out JsonElement titleElement))
+                    {
+                        String title = titleElement.GetString();
+                        imgPage_title[i - contentNo].Text = title;
+                    }
+                    if(item.TryGetProperty("link", out JsonElement linkElement))
+                    {
+                        String link = linkElement.GetString();
+                        imgPage_img[i - contentNo].Name = (pageNo + 1).ToString() + ";" + link + ";" + pageNoBox.Text;
+                    }
+                    if (item.TryGetProperty("image", out JsonElement image))
+                    {
+                        if (image.TryGetProperty("height", out JsonElement heightElement) && image.TryGetProperty("width", out JsonElement widthElement))
+                        {
+                            int height = heightElement.GetInt32();
+                            int width = widthElement.GetInt32();
 
-                    String title = titleElement.GetString();
-                    String link = linkElement.GetString();
-                    int height = heightElement.GetInt32();
-                    int width = widthElement.GetInt32();
-                    String thumbnailLink = thumbnailLinkElement.GetString();
-
-                    byte[] myDataBuffer = WClient.DownloadData(thumbnailLink);
-                    Stream stream = new MemoryStream();
-                    stream.Write(myDataBuffer, 0, myDataBuffer.Length);
-
-                    imgPage_img[i - contentNo].BackgroundImage = Image.FromStream(stream, true);
-                    imgPage_title[i - contentNo].Text = title;
-                    imgPage_img[i - contentNo].Name = (pageNo + 1).ToString() + ";" + link + ";" + pageNoBox.Text;
-                    imgSize_label[i - contentNo].Text = width + " * " + height;
+                            imgSize_label[i - contentNo].Text = width + " * " + height;
+                        }
+                        if (image.TryGetProperty("thumbnailLink", out JsonElement thumbnailLinkElement))
+                        {
+                            String thumbnailLink = thumbnailLinkElement.GetString();
+                            byte[] myDataBuffer = WClient.DownloadData(thumbnailLink);
+                            Stream stream = new MemoryStream();
+                            stream.Write(myDataBuffer, 0, myDataBuffer.Length);
+                            imgPage_img[i - contentNo].BackgroundImage = Image.FromStream(stream, true);
+                        }
+                    }
                 }
             }
             catch(Exception e)

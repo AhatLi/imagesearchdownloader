@@ -180,6 +180,7 @@ namespace ImageSearchDownloader
 
         private void p1StartBtn_Click(object sender, EventArgs e)
         {
+            allControlClear();
             allControlAdd();
             getPage();
         }
@@ -352,6 +353,7 @@ namespace ImageSearchDownloader
 
         private void p2StartBtn_Click_1(object sender, EventArgs e)
         {
+            allControlClear();
             allControlAdd();
 
             int imageNumber = 0;
