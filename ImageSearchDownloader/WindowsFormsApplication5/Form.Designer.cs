@@ -115,7 +115,7 @@
             // 
             // nameText
             // 
-            this.nameText.Location = new System.Drawing.Point(1207, 9);
+            this.nameText.Location = new System.Drawing.Point(1211, 8);
             this.nameText.Name = "nameText";
             this.nameText.Size = new System.Drawing.Size(103, 21);
             this.nameText.TabIndex = 8;
@@ -152,7 +152,7 @@
             // p1Label2
             // 
             this.p1Label2.AutoSize = true;
-            this.p1Label2.Location = new System.Drawing.Point(1144, 14);
+            this.p1Label2.Location = new System.Drawing.Point(1148, 13);
             this.p1Label2.Name = "p1Label2";
             this.p1Label2.Size = new System.Drawing.Size(57, 12);
             this.p1Label2.TabIndex = 10;

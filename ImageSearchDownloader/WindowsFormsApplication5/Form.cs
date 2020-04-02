@@ -13,7 +13,6 @@ namespace ImageSearchDownloader
     {
         int click;
         int dirCount;
-        WebBrowser webBrowser = new WebBrowser();
         ImagePage mainpage;
 
         bool fin = false;
@@ -25,8 +24,6 @@ namespace ImageSearchDownloader
             proxyText.Text = "http://www.freeproxylists.net/";
             click = 0;
 
-            webBrowser.ScriptErrorsSuppressed = true;
-
             ServicePointManager.Expect100Continue = true;
             ServicePointManager.SecurityProtocol = SecurityProtocolType.Ssl3 | SecurityProtocolType.Tls | SecurityProtocolType.Tls11 | SecurityProtocolType.Tls12;
             ServicePointManager.ServerCertificateValidationCallback = delegate { return true; };
@@ -34,7 +31,12 @@ namespace ImageSearchDownloader
 
         bool retry = true;
 
-        void allControlAdd()
+        public void allControlClear()
+        {
+            tabPage1.Controls.Clear();
+            tabPage2.Controls.Clear();
+        }
+        public void allControlAdd()
         {
             this.tabPage1.Controls.Add(this.p1DownBtn);
             this.tabPage1.Controls.Add(this.p1NextBtn);
@@ -176,14 +178,8 @@ namespace ImageSearchDownloader
             downloadPic(nameText.Text);
         }
 
-        private void reloadPage(object sender, EventArgs e, ImagePage page)
-        {
-            page.getPage(page.fileName.Text);
-        }
-
         private void p1StartBtn_Click(object sender, EventArgs e)
         {
-            tabPage1.Controls.Clear();
             allControlAdd();
             getPage();
         }
@@ -339,9 +335,9 @@ namespace ImageSearchDownloader
 
         void getPage()
         {
-            mainpage = new ImagePage(webBrowser, this);
+            mainpage = new ImagePage(this);
 
-            mainpage.makePage(0);
+            mainpage.makePage(0, 1);
 
             mainpage.panel.Location = new Point(0, 35);
             mainpage.panel.Size = new Size(1620, 280);
@@ -356,7 +352,6 @@ namespace ImageSearchDownloader
 
         private void p2StartBtn_Click_1(object sender, EventArgs e)
         {
-            tabPage2.Controls.Clear();
             allControlAdd();
 
             int imageNumber = 0;
@@ -371,7 +366,7 @@ namespace ImageSearchDownloader
                     return;
                 }
 
-                ImagePage page = new ImagePage(webBrowser, this);
+                ImagePage page = new ImagePage(this);
                 page.makePage(imageNumber);
 
                 page.panel.Location = new Point(0, 35 + imageNumber * 290);
